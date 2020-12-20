@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import user
-from .serializer import userserializer
+from .serializer import userserializer,loginSerializer
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 @api_view(['POST'])
 def registerView(request):
-	print(request.data,request.method)
+	#print(request.data,request.method)
 	#u = user(email = request.data['email'],password = request.data['password'],firstname = request.data['firstname'],lastname = request.data['lastname'])
 	try:
 		serializer = userserializer(data = request.data)
@@ -25,7 +25,24 @@ def registerView(request):
 		else:
 			return Response(serializer.errors, status=400)
 	except Exception as ex:
-		return Response({"message":ex})
+		return Response({"message":ex},status =500)
+
+@api_view(['POST'])
+def loginView(request):
+	try:
+		serializer = loginSerializer(data = request.data)
+		if serializer.is_valid():
+			u = user.objects.filter(email=request.data['email']).values()
+			if len(u) == 0:
+				return Response(status=400, data={"msg": "Email Id Not Found"})
+			if (u[0]['password']==request.data['password']):
+				return Response(status=200,data={"msg":"Login Successful"})
+			return Response(status=400,data={"msg":"Wrong Password"})
+		else:
+			return Response(serializer.errors, status=400)
+	except Exception as ex:
+		return Response({"message":ex},status =500)
+			 
 
 
 
