@@ -1,9 +1,32 @@
 from django.shortcuts import render
-from models import user
+from .models import user
+from .serializer import userserializer
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
 
-# Create your views here.
+@api_view(['POST'])
+def registerView(request):
+	print(request.data,request.method)
+	#u = user(email = request.data['email'],password = request.data['password'],firstname = request.data['firstname'],lastname = request.data['lastname'])
+	try:
+		serializer = userserializer(data = request.data)
+		if serializer.is_valid():
+			if len(user.objects.filter(email=request.data['email'])) > 0:
+				return Response(status=400, data={"msg": "email already in use"})
+			u = user()
+			u.lastname = request.data['lastname']
+			u.password = request.data['password']
+			u.email = request.data['email']
+			u.firstname = request.data['firstname']
+			u.save()
+			return Response({"message":"User Registration Successfully"},status=200)
+		else:
+			return Response(serializer.errors, status=400)
+	except Exception as ex:
+		return Response({"message":ex})
 
-def register(request):
-	if request.method == 'POST':
-		try:
+
+
 
