@@ -121,5 +121,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-FIREBASE_ORM_CERTIFICATE = r'C:\Users\Udit Dashore\Desktop\Projects\BE Project\BEProject\Codeit\Codeit\firebase.json'
-FIREBASE_ORM_BUCKET_NAME = 'testdatabase-fb2a0.appspot.com'
+

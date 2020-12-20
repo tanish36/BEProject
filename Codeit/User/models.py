@@ -1,4 +1,4 @@
-from firebase_orm import models
+from django.db import models
 
 
 class Article(models.Model):
