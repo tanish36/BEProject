@@ -13,7 +13,8 @@ import Container from '@material-ui/core/Container';
 import { Switch, Route, useHistory } from "react-router-dom";
 import SignIn from "./Signin"
 import AuthService from '../services/auth.service';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import './Signup.css';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
     let history = useHistory();
+    let loading = false;
 
     const classes = useStyles();
 
@@ -44,9 +46,9 @@ export default function SignUp() {
         AuthService.logOut();
     }
 
-    async function handleSubmit(event) {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(event)
+        loading = true;
 
         let firstname = event.target[0].value;
         let lastname = event.target[2].value;
@@ -54,103 +56,118 @@ export default function SignUp() {
         let password = event.target[6].value;
 
 
-        const response = JSON.stringify(AuthService.register(firstname, lastname, email, password));
-
-        console.log(response);
-
-        if (response.status == "200") {
-            console.log("Hi")
-            history.push("/Signin");
-        } else {
+        AuthService.register(firstname, lastname, email, password).then((response) => {
+            history.push("Signin");
+        }, (error) => {
             history.push("/Signup");
-        }
+            console.log(error);
+        });
 
     }
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign up
+        <>{loading ?
+            <div className="Loader">
+                <CircularProgress />
+            </div>
+
+            : <></>}
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign up
                 </Typography>
 
-                <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="fname"
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="firstName"
-                                label="First Name"
-                                autoFocus
-                            />
+                    <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="fname"
+                                    name="firstName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
+                        {
+                            loading ? <Button
+                                type="submit"
                                 fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                autoComplete="lname"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign Up
-                    </Button>
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                disabled
+                            >
+                                Sign Up
+                        </Button> :
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                >
+                                    Sign Up
+                                </Button>
+                        }
 
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Link href={"/Signin"} variant="body2">
-                                Already have an account? Sign in
+                        <Grid container justify="flex-end">
+                            <Grid item>
+                                <Link href={"/Signin"} variant="body2">
+                                    Already have an account? Sign in
                             </Link>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </form>
-            </div>
-            <Box mt={5}>
-            </Box>
-            <Switch>
-                <Route exact path="/Signin" component={SignIn} />
-            </Switch>
-        </Container>
+                    </form>
+                </div>
+                <Box mt={5}>
+                </Box>
+                <Switch>
+                    <Route exact path="/Signin" component={SignIn} />
+                </Switch>
+            </Container>
+        </>
     );
 }
