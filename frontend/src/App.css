@@ -1,0 +1,13 @@
+.MainConatiner {
+  margin-top: 60px;
+}
+
+.Sidebar {
+  margin: 0;
+  padding-left: 5px;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
