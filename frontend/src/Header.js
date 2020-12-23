@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React from 'react'
 import { Nav, Navbar, Button } from 'react-bootstrap'
 import AuthService from './services/auth.service'
-import { useHistory } from 'react-router-dom'
+
 
 export default function Header({ logOut, loggedIn }) {
 
@@ -12,8 +11,6 @@ export default function Header({ logOut, loggedIn }) {
         logOut();
         window.location.href = "/";
     }
-
-
 
     return (
 
@@ -36,7 +33,6 @@ export default function Header({ logOut, loggedIn }) {
                 </Nav>
             }
         </Navbar>
-
 
     );
 }

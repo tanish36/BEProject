@@ -22,11 +22,8 @@ export default function App() {
     if (localStorage.getItem("user")) {
       setloggedIn(true);
       setuser(localStorage.getItem("user"));
-      //window.location.reload();
     } else {
       setloggedIn(false);
-      //history.push("/Signin");
-      // window.location.reload();
     }
   }, [loggedIn])
 
