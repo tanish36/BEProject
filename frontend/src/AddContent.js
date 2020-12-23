@@ -29,7 +29,7 @@ function AddContent() {
                             <Form.Group as={Row} controlId="formHorizontalTopic">
                                 <Form.Label column sm={2}>
                                     Topic
-                                                    </Form.Label>
+                                </Form.Label>
                                 <Col sm={10}>
                                     <Form.Control type="text" placeholder="Binary Search" />
                                 </Col>
