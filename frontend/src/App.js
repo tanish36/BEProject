@@ -2,7 +2,7 @@ import SignUp from './components/Signup';
 import React, { useState, useEffect } from 'react';
 import SignIn from './components/Signin';
 import AuthService from "./services/auth.service";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Profile from './Profile';
@@ -14,44 +14,50 @@ import Content from './Content';
 
 export default function App() {
 
-  const loggedIn = false;
+  let history = useHistory();
+  const [user, setuser] = useState({});
+  const [loggedIn, setloggedIn] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setloggedIn(true);
+      setuser(localStorage.getItem("user"));
+      //window.location.reload();
+    } else {
+      setloggedIn(false);
+      //history.push("/Signin");
+      // window.location.reload();
+    }
+  }, [loggedIn])
 
   return (
     <>
-      <Header />
       <div className="MainConatiner">
         <Row>
           {
             (loggedIn) ?
               <>
+                <Header logOut={() => setloggedIn(false)} loggedIn={loggedIn} />
                 <Col xs={2}>
                   <div className="Sidebar">
-                    <Sidebar />
+                    <Sidebar isLoggedIn={loggedIn} />
                   </div>
-                </Col>
-                <Col>
-                  <Container>
-                    <Switch>
-                      <Route exact path="/Welcome" component={Profile} />
-                      <Route exact path="/AddContent" component={AddContent} />
-                      <Route exact path="/Content" component={Content} />
-                    </Switch>
-                  </Container>
                 </Col>
               </>
               :
-              <>
-                <Container>
-                  <Switch>
-                    <Route exact path="/Signup" component={SignUp} />
-                    <Route exact path="/Signin" component={SignIn} />
-                  </Switch>
-                </Container>
-
-              </>
+              <Header logOut={() => setloggedIn(false)} loggedIn={loggedIn} />
           }
+          <Container>
+            <Switch>
+              <Route exact path="/" component={SignIn} />
+              <Route exact path="/Welcome" component={Profile} />
+              <Route exact path="/AddContent" component={AddContent} />
+              <Route exact path="/Content" component={Content} />
+              <Route exact path="/Signup" component={SignUp} />
+              <Route exact path="/Signin" component={SignIn} />
+            </Switch>
+          </Container>
         </Row>
-
       </div>
 
     </>
