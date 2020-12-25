@@ -11,6 +11,7 @@ import './App.css';
 import { Container, Col, Row } from 'react-bootstrap';
 import Content from './Content';
 import Discuss from './Discuss';
+import Problem from './Problem';
 
 export default function App() {
 
@@ -53,6 +54,7 @@ export default function App() {
               <Route exact path="/Signup" component={SignUp} />
               <Route exact path="/Signin" component={SignIn} />
               <Route exact path="/Discuss" component={Discuss} />
+              <Route exact path="/Problem" component={Problem} />
             </Switch>
           </Container>
         </Row>
