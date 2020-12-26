@@ -6,6 +6,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Profile from './Profile';
 import AddContent from './AddContent';
+import Contest from './Contest';
 
 import './App.css';
 import { Container, Col, Row } from 'react-bootstrap';
@@ -55,6 +56,7 @@ export default function App() {
               <Route exact path="/Signin" component={SignIn} />
               <Route exact path="/Discuss" component={Discuss} />
               <Route exact path="/Problem" component={Problem} />
+              <Route exact path="/Contest" component={Contest} />
             </Switch>
           </Container>
         </Row>
