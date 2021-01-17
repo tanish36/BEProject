@@ -1,8 +1,7 @@
 import SignUp from './components/Signup';
 import React, { useState, useEffect } from 'react';
 import SignIn from './components/Signin';
-import AuthService from "./services/auth.service";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Profile from './Profile';
@@ -11,6 +10,7 @@ import AddContent from './AddContent';
 import './App.css';
 import { Container, Col, Row } from 'react-bootstrap';
 import Content from './Content';
+import Discuss from './Discuss';
 
 export default function App() {
 
@@ -52,6 +52,7 @@ export default function App() {
               <Route exact path="/Content" component={Content} />
               <Route exact path="/Signup" component={SignUp} />
               <Route exact path="/Signin" component={SignIn} />
+              <Route exact path="/Discuss" component={Discuss} />
             </Switch>
           </Container>
         </Row>
