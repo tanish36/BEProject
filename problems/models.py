@@ -7,4 +7,5 @@ class problem(models.Model):
     problem_tags = models.TextField()
     problem_io = models.TextField()
     problem_con = models.TextField()
+    problem_test = models.TextField()
 

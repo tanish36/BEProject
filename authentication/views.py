@@ -10,6 +10,10 @@ from rest_framework.response import Response
 def get_rank(request):
 	return user.objects.filter(email=request.data['email'])
 
+@api_view(['POST'])
+def update_rank(request):
+	return user.objects.filter(email=request.data['email']).update(rank=request.data['rank'])
+
 
 @api_view(['POST'])
 def registerView(request):
