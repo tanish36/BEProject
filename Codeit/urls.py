@@ -21,5 +21,6 @@ urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('topic/', include('topic.urls')),
     path('problems/', include('problems.urls')),
-    path('topic/', include('topic.urls'))
+    path('topic/', include('topic.urls')),
+    path('discuss/', include('discussion.urls'))
 ]
