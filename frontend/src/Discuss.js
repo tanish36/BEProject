@@ -7,29 +7,32 @@ import DiscussService from './services/discuss.service';
 
 function Discuss() {
 
-    var DiscussionID = "";
+    const [discussionId, setdiscussionId] = useState("")
     const [Clicked, setClicked] = useState(false)
     const [isLoading, setisLoading] = useState(false)
 
-    // useEffect(() => {
-    //     setDidMount(true);
-    //     return () => setDidMount(false);
-    // }, [])
 
     useEffect(() => {
         setisLoading(true);
-        DiscussService.getDiscussionTopics().then((response) => {
+        if (localStorage.getItem("Discuss") == undefined) {
+
+            DiscussService.getDiscussionTopics().then((response) => {
+                setisLoading(false);
+            }, (error) => {
+            })
+        } else {
             setisLoading(false);
-        }, (error) => {
-        })
+        }
 
     }, [localStorage.getItem("Discuss")]);
 
 
     function handleClick(discussId) {
-        DiscussionID = discussId;
 
-        console.log("In Discuss handle Click")
+        setdiscussionId(discussId);
+
+        console.log("In Discuss handle Click " + discussId)
+
         setisLoading(true);
 
         // Ask axios to get the data from the backend
@@ -37,7 +40,7 @@ function Discuss() {
 
         } else {
             DiscussService.getDiscussion(discussId).then((response) => {
-
+                console.log(response)
             }, (error) => {
 
             })
@@ -49,14 +52,10 @@ function Discuss() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        // console.log(event.target[0].value)
-        // console.log(event.target[1].value)
+
         var topic = event.target[0].value;
         var content = event.target[1].value;
         var email = JSON.parse(localStorage.getItem("user")).email
-        // addDiscussion(username, topic, doubt)
-        console.log(topic + " " + content + " " + email)
-
 
         DiscussService.addDiscussion(email, topic, content).then((response) => {
 
@@ -77,7 +76,7 @@ function Discuss() {
             {
 
                 Clicked ? <>
-                    <Discussion discussionId={DiscussionID} />
+                    <Discussion discussId={discussionId} />
                 </>
                     :
                     <>
@@ -125,9 +124,13 @@ function Discuss() {
 
 function Discussion({ discussId }) {
 
-    const [discussion, setdiscussion] = useState([])
+    const [discussion, setdiscussion] = useState()
+    // const [user, setuser] = useState()
 
     useEffect(() => {
+
+        setdiscussion(JSON.parse(localStorage.getItem(discussId)))
+
         DiscussService.getDiscussionResponses(discussId).then((response) => {
             console.log(response);
             //setdiscussion([...response])
@@ -138,11 +141,9 @@ function Discussion({ discussId }) {
 
     return <>
         <br />
-        <DiscussHeader Topic={"Binary Search"} firstname={"John"} lastname={"Doe"} Rank={"Pupil"} Content={"Hey Buddy How are you this is a sample content for test"} />
+        <DiscussHeader Topic={discussion && discussion.title} email={discussion && discussion.email} Content={discussion && discussion.content} />
         <br />
-        <DiscussResponse firstname={"XYZ"} lastname={"ABC"} Rank={"Newbie"} Title={"My Opinion"} Content={"Give your Opinion"} />
-        <DiscussResponse firstname={"PQR"} lastname={"ABC"} Rank={"Expert"} Title={"My Opinion"} Content={"Give your Opinion"} />
-        <DiscussResponse firstname={"STU"} lastname={"ABC"} Rank={"Candidate Master"} Title={"My Opinion"} Content={"Give your Opinion"} />
+        <DiscussResponse email={"Newbie"} Title={"My Opinion"} Content={"Give your Opinion"} />
     </>
 }
 
