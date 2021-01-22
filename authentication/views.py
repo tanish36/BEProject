@@ -47,7 +47,7 @@ def loginView(request):
 			if len(u) == 0:
 				return Response(status=400, data={"msg": "Email Id Not Found"})
 			if (u[0]['password']==request.data['password']):
-				return Response(status=200,data=u)
+				return Response(status=200,data=u[0])
 			return Response(status=400,data={"msg":"Wrong Password"})
 		else:
 			return Response(serializer.errors, status=400)

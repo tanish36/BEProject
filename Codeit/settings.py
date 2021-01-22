@@ -87,9 +87,13 @@ WSGI_APPLICATION = 'Codeit.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'mydatabase',
+    'USER': 'postgre',
+    'PASSWORD': 'admin123',
+    'HOST': 'database-1.cu24h4ulvyoa.ap-south-1.rds.amazonaws.com',
+    'PORT': '5432',
     }
 }
 
