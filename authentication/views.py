@@ -6,6 +6,15 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
+@api_view(['GET'])
+def get_rank(request):
+	return user.objects.filter(email=request.data['email'])
+
+@api_view(['POST'])
+def update_rank(request):
+	return user.objects.filter(email=request.data['email']).update(rank=request.data['rank'])
+
+
 @api_view(['POST'])
 def registerView(request):
 	#print(request.data,request.method)
@@ -20,6 +29,8 @@ def registerView(request):
 			u.password = request.data['password']
 			u.email = request.data['email']
 			u.firstname = request.data['firstname']
+			u.isadmin = request.data['isadmin']
+			u.rank = request.data['rank']
 			u.save()
 			return Response({"message":"User Registration Successfully"},status=200)
 		else:
