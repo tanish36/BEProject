@@ -23,12 +23,13 @@ class DiscussService {
             })
             .then(response => {
                 console.log(response);
-                localStorage.setItem(response.data.discussionID, response.data)
+                localStorage.setItem(response.data.discussionID, JSON.stringify(response.data));
                 return response.data;
             });
     }
 
     getDiscussionResponses(discId) {
+
         return axios
             .get(API_URL + "getDiscussionResponses", {
                 params: {
