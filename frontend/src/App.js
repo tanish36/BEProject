@@ -6,11 +6,13 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Profile from './Profile';
 import AddContent from './AddContent';
+import Contest from './Contest';
 
 import './App.css';
 import { Container, Col, Row } from 'react-bootstrap';
 import Content from './Content';
 import Discuss from './Discuss';
+import Problem from './Problem';
 
 export default function App() {
 
@@ -53,6 +55,8 @@ export default function App() {
               <Route exact path="/Signup" component={SignUp} />
               <Route exact path="/Signin" component={SignIn} />
               <Route exact path="/Discuss" component={Discuss} />
+              <Route exact path="/Problem" component={Problem} />
+              <Route exact path="/Contest" component={Contest} />
             </Switch>
           </Container>
         </Row>
