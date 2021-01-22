@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'problems',
     'discussion',
     'rest_framework',
-     'corsheaders'
+    'corsheaders'
    
 ]
 
