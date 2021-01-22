@@ -17,13 +17,14 @@ def getDiscussionTopics(request):
 
 @api_view(['GET'])
 def getDiscussion(request):
-	Discussion = discussion.objects.filter(discussionId=request.data['discussionId'])
-	return JsonResponse(Discussion.data, safe=False) 
+	return Response(discussion.objects.filter(discussionId=request.GET['id']).values())
+	#print(Discussion)
+	#return JsonResponse(Discussion, safe=False) 
 
 @api_view(['GET'])
 def getDiscussionResponses(request):
-	Response = discussion.objects.filter(discussionId=request.data['discussionId'])
-	return JsonResponse(Response.data, safe=False)		 
+	return Response(response.objects.filter(discussionId=request.GET['id']).values())
+			 
 
 @api_view(['POST'])
 def addDiscussion(request):
@@ -49,7 +50,7 @@ def addDiscussionResponse(request):
 		if serializer.is_valid():
 			u = response()
 			u.email = request.data['email']
-			u.discussionId = request.data['discussionId']
+			u.responseid = request.data['responseid']
 			u.content = request.data['content']
 			u.save()
 			return Response({"message":"Response Saved"},status=200)

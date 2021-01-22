@@ -10,3 +10,6 @@ urlpatterns = [
     path('addDiscussion',views.addDiscussion,name = 'addDiscussion'),
     path('addDiscussionResponse',views.addDiscussionResponse,name = 'addDiscussionResponse'),
 ]
+#azure
+#Codeschool123
+#CodeSchool
