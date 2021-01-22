@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Nav, Navbar, Button } from 'react-bootstrap'
 import AuthService from './services/auth.service'
 
 
 export default function Header({ logOut, loggedIn }) {
+
+    const [userName, setuserName] = useState("")
+
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+            var obj = JSON.parse(localStorage.getItem("user"));
+            console.log(obj);
+            setuserName(obj.firstname);
+        } else {
+            setuserName("");
+        }
+    }, [])
 
     function Logout() {
         loggedIn = false;
@@ -24,7 +36,7 @@ export default function Header({ logOut, loggedIn }) {
             {loggedIn ?
 
                 <Nav className="justify-content-end">
-                    <Nav.Link href="/Signin">XYZ</Nav.Link>
+                    <Nav.Link href="/Signin">{userName}</Nav.Link>
                     <Button onClick={Logout}>Logout</Button>
                 </Nav> :
                 <Nav className="justify-content-end">
