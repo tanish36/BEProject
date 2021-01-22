@@ -1,4 +1,4 @@
-from .models import discussion,response
+from .models import discussion,responsetable
 from rest_framework import serializers
 
 class TopicSerializer(serializers.ModelSerializer):
@@ -13,7 +13,7 @@ class discussionSerializer(serializers.ModelSerializer):
 
 class responseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = response
+        model = responsetable
         fields = ("__all__")
 
 class newDiscussionSerializer(serializers.ModelSerializer):
@@ -23,6 +23,6 @@ class newDiscussionSerializer(serializers.ModelSerializer):
 
 class newResponseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = response
+        model = responsetable
         fields = ("discussionId","email","content")
 

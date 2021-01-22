@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import discussion,response
+from .models import discussion,responsetable
 from .serializer import discussionSerializer,newDiscussionSerializer,responseSerializer,newResponseSerializer,TopicSerializer
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
@@ -47,15 +47,17 @@ def addDiscussion(request):
 def addDiscussionResponse(request):
 	try:
 		serializer = newResponseSerializer(data = request.data)
-		if serializer.is_valid():
-			u = response()
-			u.email = request.data['email']
-			u.discussionId = request.data['discussionId']
-			u.content = request.data['content']
-			u.save()
-			return Response({"message":"Response Saved"},status=200)
-		else:
-			return Response(serializer.errors, status=400)
+		try:
+			if serializer.is_valid():
+				ug = responsetable()
+				ug.email = request.data['email']
+				ug.discussionId = request.data['discussionId']
+				ug.content = request.data['content']
+				ug.save()				
+				return Response({"message":"Response Saved"},status=200) 
+			
+		except Exception as ex:
+			return Response({"message":str(ex)},status =500)
 	except Exception as ex:
-		return Response({"message":ex},status =500)
+		return Response({"message":str(ex)},status =500)
 
