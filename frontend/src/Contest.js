@@ -1,14 +1,33 @@
-import React from 'react'
-import Timer from './Timer'
-import { Card } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Card, ListGroup, Button, Row, Col } from 'react-bootstrap'
+
+// Check whether user is registered or not if yes then go ahead
 
 function Contest() {
+
+    const [isRegistered, setisRegistered] = useState(false)
+
     return (
-        <Card>
-            <Card.Body>
-                <Timer until={Date.now() + 60000} />
-            </Card.Body>
-        </Card>
+        <>
+            <Card>
+                <Card.Header>Current Contest</Card.Header>
+                <Row>
+                    <Col>
+                        <ListGroup variant="flush">
+                            <ListGroup.Item action disabled href="#link" >Title of the Discussion</ListGroup.Item>
+                        </ListGroup>
+                    </Col>
+                </Row>
+                {/* <Timer until={Date.now() + 60000} /> */}
+            </Card>
+            <br />
+            <Card>
+                <Card.Header>Past Contest</Card.Header>
+                <ListGroup variant="flush">
+                    <ListGroup.Item action disabled href="#link" >Title of the Discussion</ListGroup.Item>
+                </ListGroup>
+            </Card>
+        </>
     )
 }
 
