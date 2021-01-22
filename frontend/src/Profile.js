@@ -39,23 +39,23 @@ function Profile() {
                                                     <Form.Row>
                                                         <Form.Group as={Col} >
                                                             <Form.Label>FirstName</Form.Label>
-                                                            <Form.Control type="text" placeholder="John" />
+                                                            <Form.Control type="text" placeholder={JSON.parse(localStorage.getItem("user")).firstname} />
                                                         </Form.Group>
 
                                                         <Form.Group as={Col} >
                                                             <Form.Label>Lastname</Form.Label>
-                                                            <Form.Control type="text" placeholder="Doe" />
+                                                            <Form.Control type="text" placeholder={JSON.parse(localStorage.getItem("user")).lastname} />
                                                         </Form.Group>
                                                     </Form.Row>
 
                                                     <Form.Group>
                                                         <Form.Label>Username</Form.Label>
-                                                        <Form.Control placeholder="abc@gmail.com" />
+                                                        <Form.Control placeholder={JSON.parse(localStorage.getItem("user")).email} />
                                                     </Form.Group>
 
                                                     <Form.Group>
                                                         <Form.Label>Rank</Form.Label>
-                                                        <Form.Control placeholder="Newbie" />
+                                                        <Form.Control placeholder={JSON.parse(localStorage.getItem("user")).rank} />
                                                     </Form.Group>
 
                                                 </fieldset>

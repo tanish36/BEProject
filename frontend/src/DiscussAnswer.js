@@ -8,13 +8,14 @@ function DiscussAnswer({ Title, Content }) {
 
     //TO-DO : Implement the Submission of Answer;
     function handleSubmit(event) {
+        console.log("in handle Submit")
         setisSubmitted(true);
     }
 
     return (
         < div >
             {
-                isSubmitted ? <Redirect to="/Discuss" /> :
+                isSubmitted ? <Redirect to="/Welcome" /> :
                     <Card>
                         <Card.Body>
                             <Card.Title>{Title}</Card.Title>
@@ -23,8 +24,7 @@ function DiscussAnswer({ Title, Content }) {
                                 {Content}
                             </Card.Text>
                             <br />
-                            <Form>
-
+                            <Form onSubmit={handleSubmit}>
                                 <Form.Group controlId="Form.ControlContent">
                                     <Form.Label >Answer</Form.Label>
                                     <Form.Control as="textarea" rows={10} />
