@@ -50,7 +50,7 @@ def addDiscussionResponse(request):
 		if serializer.is_valid():
 			u = response()
 			u.email = request.data['email']
-			u.responseid = request.data['responseid']
+			u.discussionId = request.data['discussionId']
 			u.content = request.data['content']
 			u.save()
 			return Response({"message":"Response Saved"},status=200)

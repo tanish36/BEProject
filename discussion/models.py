@@ -10,6 +10,6 @@ class discussion(models.Model):
 
 class response(models.Model):
     email = models.CharField(max_length=120, unique=True, verbose_name="email")
-    responseid = models.ForeignKey(discussion,on_delete=models.CASCADE)
+    discussionId = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
     content = models.CharField(max_length=1000, verbose_name="content")
 
