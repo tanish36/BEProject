@@ -14,15 +14,12 @@ function Discuss() {
 
     useEffect(() => {
         setisLoading(true);
-        if (localStorage.getItem("Discuss") == undefined) {
 
-            DiscussService.getDiscussionTopics().then((response) => {
-                setisLoading(false);
-            }, (error) => {
-            })
-        } else {
+        DiscussService.getDiscussionTopics().then((response) => {
             setisLoading(false);
-        }
+        }, (error) => {
+            setisLoading(false);
+        })
 
     }, [localStorage.getItem("Discuss")]);
 
@@ -36,15 +33,12 @@ function Discuss() {
         setisLoading(true);
 
         // Ask axios to get the data from the backend
-        if (localStorage.getItem(discussId) != undefined) {
 
-        } else {
-            DiscussService.getDiscussion(discussId).then((response) => {
-                console.log(response)
-            }, (error) => {
+        DiscussService.getDiscussion(discussId).then((response) => {
+            console.log(response)
+        }, (error) => {
 
-            })
-        }
+        })
 
         setisLoading(false);
         setClicked(true);
@@ -124,13 +118,14 @@ function Discuss() {
 
 function Discussion({ discussId }) {
 
-    const [discussion, setdiscussion] = useState();
+    const [discussion, setdiscussion] = useState([]);
     const [discussionResponses, setdiscussionResponses] = useState([])
     // const [user, setuser] = useState()
 
     useEffect(() => {
 
         setdiscussion(JSON.parse(localStorage.getItem(discussId)))
+        //console.log(discussion);
 
         DiscussService.getDiscussionResponses(discussId).then((response) => {
             console.log(response);
@@ -142,10 +137,10 @@ function Discussion({ discussId }) {
 
     return <>
         <br />
-        <DiscussHeader Topic={discussion && discussion.title} discussId={discussion.discussionId} email={discussion && discussion.email} Content={discussion && discussion.content} />
+
+        <DiscussHeader Topic={JSON.parse(localStorage.getItem(discussId))[0].title} discussId={JSON.parse(localStorage.getItem(discussId))[0].discussionId} email={JSON.parse(localStorage.getItem(discussId))[0].email} Content={JSON.parse(localStorage.getItem(discussId))[0].content} />
         <br />
         {discussionResponses && discussionResponses.map(dis => <DiscussResponse email={dis.email} Title={dis.title} Content={dis.content} />)}
-        {/* <DiscussResponse email={"Newbie"} Title={"My Opinion"} Content={"Give your Opinion"} /> */}
     </>
 }
 

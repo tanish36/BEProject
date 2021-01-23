@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/discuss/";
+const API_URL = "http://127.0.0.1:8000/discuss/";
 
 class DiscussService {
 
@@ -8,7 +8,7 @@ class DiscussService {
         return axios
             .get(API_URL + "getDiscussionTopics")
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 localStorage.setItem("Discuss", JSON.stringify(response.data));
                 return response.data;
             });
@@ -23,7 +23,7 @@ class DiscussService {
             })
             .then(response => {
                 console.log(response);
-                localStorage.setItem(response.data.discussionID, JSON.stringify(response.data));
+                localStorage.setItem(discId, JSON.stringify(response.data));
                 return response.data;
             });
     }

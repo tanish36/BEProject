@@ -11,14 +11,13 @@ function DiscussAnswer({ discussId, Title, Content }) {
     function handleSubmit(event) {
 
         console.log("in handle Submit")
-
+        event.preventDefault();
         //Call the apis to answer a question
-        console.log(event.target);
 
         var email = JSON.parse(localStorage.getItem("user")).email;
 
         //Remaining work is to get the content from the form rest work is done.
-        var content = "This is a sample response Added for testing purposes";
+        var content = event.target[0].value
 
         DiscussService.addDiscussionResponse(discussId, email, content).then(() => {
 

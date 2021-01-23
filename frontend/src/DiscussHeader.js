@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, Button } from 'react-bootstrap'
 import DiscussAnswer from './DiscussAnswer'
 
-function DiscussHeader({ discussId, Topic, firstname, lastname, Rank, Content }) {
+function DiscussHeader({ discussId, Topic, email, Rank, Content }) {
 
     const [clicked, setclicked] = useState(false)
 
@@ -18,7 +18,7 @@ function DiscussHeader({ discussId, Topic, firstname, lastname, Rank, Content })
                         <DiscussAnswer discussId={discussId} Title={Topic} Content={Content} />
                     </> :
                     <Card>
-                        <Card.Header>{firstname} {lastname} , {Rank}</Card.Header>
+                        <Card.Header>{email}</Card.Header>
                         <Card.Body>
                             <Card.Title>{Topic}</Card.Title>
                             <Card.Text>
