@@ -7,7 +7,7 @@ function AddContent() {
     return (
         <div className="AddContent">
             {
-                localStorage.getItem("user") ? <Card className="text-center">
+                localStorage.getItem("user") != undefined ? <Card className="text-center">
                     <Card.Body>
                         <Card.Title>Content</Card.Title>
 

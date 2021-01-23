@@ -124,7 +124,8 @@ function Discuss() {
 
 function Discussion({ discussId }) {
 
-    const [discussion, setdiscussion] = useState()
+    const [discussion, setdiscussion] = useState();
+    const [discussionResponses, setdiscussionResponses] = useState([])
     // const [user, setuser] = useState()
 
     useEffect(() => {
@@ -133,7 +134,7 @@ function Discussion({ discussId }) {
 
         DiscussService.getDiscussionResponses(discussId).then((response) => {
             console.log(response);
-            //setdiscussion([...response])
+            setdiscussionResponses([...response])
         }, (error) => {
 
         })
@@ -141,9 +142,10 @@ function Discussion({ discussId }) {
 
     return <>
         <br />
-        <DiscussHeader Topic={discussion && discussion.title} email={discussion && discussion.email} Content={discussion && discussion.content} />
+        <DiscussHeader Topic={discussion && discussion.title} discussId={discussion.discussionId} email={discussion && discussion.email} Content={discussion && discussion.content} />
         <br />
-        <DiscussResponse email={"Newbie"} Title={"My Opinion"} Content={"Give your Opinion"} />
+        {discussionResponses && discussionResponses.map(dis => <DiscussResponse email={dis.email} Title={dis.title} Content={dis.content} />)}
+        {/* <DiscussResponse email={"Newbie"} Title={"My Opinion"} Content={"Give your Opinion"} /> */}
     </>
 }
 
