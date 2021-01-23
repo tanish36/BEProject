@@ -8,12 +8,12 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def getcontent(request):
-    dd = topic.objects.all()
+    dd = topic.objects.all().values()
     return Response(dd)
 
 @api_view(['GET'])
 def getcontentid(request):
-    dd = topic.objects.all().filter(topic_id=request.data['topic_id'])
+    dd = topic.objects.all().filter(topic_id=request.GET['topic_id']).values()
     return Response(dd)
 
 
@@ -23,7 +23,7 @@ def addcontent(request):
 		serializer = topicserializer(data = request.data)
 		if serializer.is_valid():
 			u = topic()
-			u.topic_id = request.data['topic_id']
+			#u.topic_id = request.data['topic_id']
 			u.topic_module = request.data['topic_module']
 			u.topic_name = request.data['topic_name']
 			u.topic_vlink = request.data['topic_vlink']
