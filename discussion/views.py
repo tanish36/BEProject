@@ -23,7 +23,7 @@ def getDiscussion(request):
 
 @api_view(['GET'])
 def getDiscussionResponses(request):
-	return Response(response.objects.filter(discussionId=request.GET['id']).values())
+	return Response(responsetable.objects.filter(discussionId=request.GET['id']).values())
 			 
 
 @api_view(['POST'])
