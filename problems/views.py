@@ -23,7 +23,7 @@ def addproblem(request):
 		serializer = problemserializer(data = request.data)
 		if serializer.is_valid():
 			u = problem()
-			u.problem_id = request.data['problem_id']
+			#u.problem_id = request.data['problem_id']
 			u.problem_name = request.data['problem_name']
 			u.problem_statement = request.data['problem_statement']
 			u.problem_tags = request.data['problem_tags']
