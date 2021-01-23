@@ -13,7 +13,7 @@ def getproblems(request):
 
 @api_view(['GET'])
 def getproblemsid(request):
-	dd = problem.objects.all().filter(problem_id=request.data['problem_id'])
+	dd = problem.objects.all().filter(problem_id=request.GET['problem_id']).values()
 	return Response(dd)
 
 
@@ -29,6 +29,7 @@ def addproblem(request):
 			u.problem_tags = request.data['problem_tags']
 			u.problem_io = request.data['problem_io']
 			u.problem_con = request.data['problem_con']
+			u.problem_con = request.data['problem_test']
 			u.save()
 			return Response({"message":"Problem Added Successfully"},status=200)
 		else:
