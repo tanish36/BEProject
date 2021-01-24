@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
 import AuthService from '../services/auth.service';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Alertdism from '../Alertdism'
 import './Signup.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,13 +53,17 @@ export default function SignUp() {
 
 
         AuthService.register(firstname, lastname, email, password).then((response) => {
-            history.push("/Signin");
+            setsuccess(1)
+            //history.push("/Signin");
         }, (error) => {
-            history.push("/Signup");
+            setsuccess(0)
+            //history.push("/Signup");
             console.log(error);
         });
 
     }
+
+    const [success, setsuccess] = useState(2)
 
     return (
         <>{loading ?
@@ -67,6 +72,10 @@ export default function SignUp() {
             </div>
 
             : <></>}
+            {success == 1 ? <Alertdism setsucess={setsuccess} theme={"success"} content={"User Successfully Registered"} heading={"Success"} /> :
+
+                success == 0 ? <Alertdism setsucess={setsuccess} theme={"danger"} content={"User Already Exists"} heading={"Failure"} /> : null
+            }
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className={classes.paper}>
