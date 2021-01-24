@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import AuthService from '../services/auth.service';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useHistory } from 'react-router-dom';
+import Alertdism from '../Alertdism'
 import './Signup.css';
 
 
@@ -51,15 +52,18 @@ export default function SignIn() {
         AuthService.login(email, password).then((response) => {
             console.log(response);
             setloading(false);
+            setsuccess(1);
             history.push("/Welcome");
             window.location.reload();
         }, (error) => {
-
+            setsuccess(0);
         });
 
         setloading(false);
 
     }
+
+    const [success, setsuccess] = useState(2)
 
 
     return (
@@ -69,6 +73,11 @@ export default function SignIn() {
             </div>
 
             : <></>}
+
+            {success == 1 ? <Alertdism setsucess={setsuccess} theme={"success"} content={"User Successfully Registered"} heading={"Success"} /> :
+
+                success == 0 ? <Alertdism setsucess={setsuccess} theme={"danger"} content={"Check Username and Password"} heading={"Failure"} /> : null
+            }
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className={classes.paper}>
