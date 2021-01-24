@@ -34,11 +34,7 @@ function Discuss() {
 
         // Ask axios to get the data from the backend
 
-        DiscussService.getDiscussion(discussId).then((response) => {
-            console.log(response)
-        }, (error) => {
 
-        })
 
         setisLoading(false);
         setClicked(true);
@@ -118,29 +114,45 @@ function Discuss() {
 
 function Discussion({ discussId }) {
 
-    const [discussion, setdiscussion] = useState([]);
+    const [discussion, setdiscussion] = useState({});
     const [discussionResponses, setdiscussionResponses] = useState([])
     // const [user, setuser] = useState()
 
     useEffect(() => {
 
-        setdiscussion(JSON.parse(localStorage.getItem(discussId)))
-        //console.log(discussion);
+        if (localStorage.getItem(discussId) != undefined) {
+
+            DiscussService.getDiscussion(discussId).then((response) => {
+                setdiscussion(response[0])
+            }, (error) => {
+
+            })
+        } else {
+            setdiscussion(JSON.parse(localStorage.getItem(discussId))[0])
+        }
+
+        //console.log(discussion)
 
         DiscussService.getDiscussionResponses(discussId).then((response) => {
-            console.log(response);
+            //  console.log(response);
             setdiscussionResponses([...response])
         }, (error) => {
 
         })
     }, [])
 
+
+
     return <>
         <br />
+        {
+            discussion != {} && discussionResponses ?
+                <>
+                    <DiscussHeader Topic={discussion.title} discussId={discussion.discussionId} email={discussion.email} Content={discussion.content} />
+                    {discussionResponses.map(dis => <DiscussResponse email={dis.email} Title={dis.title} Content={dis.content} />)}
+                </> : null
 
-        <DiscussHeader Topic={JSON.parse(localStorage.getItem(discussId))[0].title} discussId={JSON.parse(localStorage.getItem(discussId))[0].discussionId} email={JSON.parse(localStorage.getItem(discussId))[0].email} Content={JSON.parse(localStorage.getItem(discussId))[0].content} />
-        <br />
-        {discussionResponses && discussionResponses.map(dis => <DiscussResponse email={dis.email} Title={dis.title} Content={dis.content} />)}
+        }
     </>
 }
 
