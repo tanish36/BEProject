@@ -114,16 +114,17 @@ function Discuss() {
 
 function Discussion({ discussId }) {
 
-    const [discussion, setdiscussion] = useState({});
+    const [discussion, setdiscussion] = useState(null);
     const [discussionResponses, setdiscussionResponses] = useState([])
     // const [user, setuser] = useState()
 
     useEffect(() => {
 
-        if (localStorage.getItem(discussId) != undefined) {
+        if (localStorage.getItem(discussId) == undefined) {
 
             DiscussService.getDiscussion(discussId).then((response) => {
                 setdiscussion(response[0])
+
             }, (error) => {
 
             })
@@ -141,19 +142,22 @@ function Discussion({ discussId }) {
         })
     }, [])
 
+    useEffect(() => {
+
+    }, [discussion])
+
+    if (discussion != null) {
+        return <>
+            <DiscussHeader Topic={discussion.title} discussId={discussion.discussionId} email={discussion.email} Content={discussion.content} />
+            { discussionResponses.map(dis => <DiscussResponse email={dis.email} Title={dis.title} Content={dis.content} />)}
+        </>
+    }
 
 
-    return <>
-        <br />
-        {
-            discussion != {} && discussionResponses ?
-                <>
-                    <DiscussHeader Topic={discussion.title} discussId={discussion.discussionId} email={discussion.email} Content={discussion.content} />
-                    {discussionResponses.map(dis => <DiscussResponse email={dis.email} Title={dis.title} Content={dis.content} />)}
-                </> : null
 
-        }
-    </>
+    return <div className="Loader">
+        < CircularProgress />
+    </div >
 }
 
 export default Discuss
