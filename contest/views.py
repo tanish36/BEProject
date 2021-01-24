@@ -11,9 +11,9 @@ from problems.models import problem
 
 
 @api_view(['GET'])
-def delcontest(request):
-    contest2.objects.all().delete()
-    return Response({"message":"ok"})
+def getcontest(request):
+    dd=contest2.objects.all().values()
+    return Response(dd,status=200)
 
 @api_view(['GET'])
 def getcproblem(request):

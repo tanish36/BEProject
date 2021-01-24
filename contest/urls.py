@@ -8,5 +8,5 @@ urlpatterns = [
     path('getcproblem',views.getcproblem,name = 'getcproblem'),
     path('registerusercontest',views.registerusercontest,name = 'registerusercontest'),
     path('addcontest',views.addcontest,name = 'addcontest'),
-    #path('delallcontest',views.delcontest,name = 'delcontest'),
+    path('getallcontest',views.getcontest,name = 'getcontest'),
 ]
