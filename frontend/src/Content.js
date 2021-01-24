@@ -6,10 +6,6 @@ import "../node_modules/video-react/dist/video-react.css";
 
 function Content({ topic, content, vlink }) {
 
-    useEffect(() => {
-        console.log(topic + " " + content + " " + vlink + "\n")
-    }, [])
-
     return (
 
         <div className="Content__Text">
