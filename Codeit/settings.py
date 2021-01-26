@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'authentication',
     'topic',
     'problems',
+    'contest',
     'discussion',
     'rest_framework',
     'corsheaders'
