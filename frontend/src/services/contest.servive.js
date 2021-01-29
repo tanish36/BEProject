@@ -23,7 +23,15 @@ class ContestService {
 
     }
 
-    addcontest() {
+    addcontest(contest_duration,contest_title,contest_timestamp) {
+        return axios
+        .post(API_URL + "addcontest", {
+            contest_duration,contest_title,contest_timestamp
+        })
+        .then(response => {
+            console.log(response);
+            return response.data;
+        });
 
     }
 
