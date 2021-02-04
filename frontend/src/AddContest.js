@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import './AddContent.css'
 import { Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
-import ContestServive from './services/contest.servive'
-import Alertdism from './Alertdism'
+import ContestService from './services/contest.service'
+import Alertdism from './Alertdism';
 
 function AddContest() {
 
@@ -20,16 +20,36 @@ function AddContest() {
         var contest_title = event.target[1].value
         //TimeStamp
         console.log(event.target[2].value);
-        var ts = event.target[2].value
-        var contest_timestamp = new Date(ts)
-        console.log(contest_timestamp);
+        var contest_timestamp =  event.target[2].value
+        //problem name
+        console.log(event.target[3].value)
+        var p_name = event.target[3].value
+        //problem state
+        console.log(event.target[4].value)
+        var p_statement = event.target[4].value
+        //problem tags
+        console.log(event.target[5].value)
+        var p_tags = event.target[5].value
+        //problem eg 
+        console.log(event.target[6].value)
+        var p_example = event.target[6].value
+        //problem const
+        console.log(event.target[7].value)
+        var p_constr = event.target[7].value
+        //problem test case
+        console.log(event.target[8].value)
+        var p_txtcase = event.target[8].value
 
-        ContestServive.addcontest(parseInt(contest_duration),contest_title,contest_timestamp).then((response) => {
+        ContestService.addcontest(parseInt(contest_duration),contest_title,contest_timestamp).then((response) => {
             setsuccess(1)
         }, (error) => {
             setsuccess(0)
         })
-
+        ContestService.addproblem(p_name,p_statement,p_tags,p_example,p_constr,p_txtcase).then((response) => {
+            setsuccess(1)
+        }, (error) => {
+            setsuccess(0)
+        })
         msgform.reset();
     }
 
@@ -38,7 +58,7 @@ function AddContest() {
             {
                 localStorage.getItem("user") != undefined ?
                     <>
-                        {success == 1 ? <Alertdism setsucess={setsuccess} theme={"success"} content={"Contest Sucessfully Added"} heading={"Success"} /> :
+                        { success == 1 ? <Alertdism setsucess={setsuccess} theme={"success"} content={"Contest Sucessfully Added"} heading={"Success"} /> :
 
                             success == 0 ? <Alertdism setsucess={setsuccess} theme={"danger"} content={"Some error occured please try again"} heading={"Failure"} /> : null
                         }
@@ -80,6 +100,68 @@ function AddContest() {
                                             </Col>
                                         
                                     </Form.Group>
+                                    
+                                    <Form.Group as={Row} controlId="formHorizontalTitle">
+                                        <Form.Label column sm={2}>
+                                            Problem 1 Name
+                                </Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control type="text" placeholder="" />
+                                        </Col>
+                                    </Form.Group>
+
+
+                                    <Form.Group as={Row} controlId="formHorizontalTitle">
+                                        <Form.Label column sm={2}>
+                                            Problem  Statement
+                                </Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control as="textarea" rows={4}  />
+                                        </Col>
+                                    </Form.Group>
+
+
+
+                                    <Form.Group as={Row} controlId="formHorizontalTitle">
+                                        <Form.Label column sm={2}>
+                                            Problem Tags
+                                </Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control type="text" placeholder="" />
+                                        </Col>
+                                    </Form.Group>
+
+
+
+                                    <Form.Group as={Row} controlId="formHorizontalTitle">
+                                        <Form.Label column sm={2}>
+                                            Example
+                                </Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control as="textarea" rows={4} placeholder="" />
+                                        </Col>
+                                    </Form.Group>
+
+                                <Form.Group as={Row} controlId="formHorizontalTitle">
+                                        <Form.Label column sm={2}>
+                                            Constrains
+                                </Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control type="text" placeholder="" />
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} controlId="formHorizontalTitle">
+                                        <Form.Label column sm={2}>
+                                            Test Case
+                                </Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control as="textarea" rows={4} placeholder="" />
+                                        </Col>
+                                    </Form.Group>
+
+
+
+
                                     <Form.Group as={Row}>
                                         <Col sm={{ span: 10 }}>
                                             <Button type="submit">Submit</Button>
