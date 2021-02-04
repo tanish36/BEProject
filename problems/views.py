@@ -31,7 +31,7 @@ def addproblem(request):
 			u.problem_con = request.data['problem_con']
 			u.problem_con = request.data['problem_test']
 			u.save()
-			return Response({"message":"Problem Added Successfully"},status=200)
+			return Response(serializer.data,status=200)
 		else:
 			return Response(serializer.errors, status=400)
 	except Exception as ex:
