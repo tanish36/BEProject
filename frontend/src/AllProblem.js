@@ -47,7 +47,7 @@ function AllProblem() {
 
 
                 < Card >
-                    <Card.Header>Learn</Card.Header>
+                    <Card.Header>Problem Set</Card.Header>
                     <ListGroup variant="flush">
                         {localStorage.getItem("Problems") && JSON.parse(localStorage.getItem("Problems")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.problem_name}</ListGroup.Item>)}
                     </ListGroup>

@@ -18,6 +18,18 @@ class ContestService {
             });
     }
 
+    //get all contest
+    getcontest() {
+        return axios
+            .get(API_URL + "getallcontest")
+            .then(response => {
+                console.log(response);
+                localStorage.setItem("Contests", JSON.stringify(response.data));
+                return response.data;
+            });
+        }
+
+
     //get all problem 
 
     getproblems() {
@@ -60,9 +72,7 @@ class ContestService {
 
     }
 
-    addprobleminContest() {
-
-    }
+    
 
 }
 
