@@ -11,14 +11,16 @@ function Problem({name ,tags ,statement ,exampl, constraints, txtcase}) {
         <div>
              <Card >
                 <Card.Body>
-                    <Card.Title className="text-center">  <h2>{name}</h2>        <small>Tags {tags}</small></Card.Title>
+                    <Card.Title className="text-center">  <h2>{name}</h2>        <small>Tags {tags}</small>  <br></br>
+                    <small>{constraints}</small>
+                    </Card.Title>
                     <Card>
                         <Card.Header>Problem Statement</Card.Header>
                         <Card.Body>
 
                             <Card.Text>
                                 {statement}
-                                {constraints}
+                                
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -33,7 +35,7 @@ function Problem({name ,tags ,statement ,exampl, constraints, txtcase}) {
                     </Card>
                     <br />
                     <Card>
-                        <Card.Header>Output</Card.Header>
+                        <Card.Header>Test Case</Card.Header>
                         <Card.Body>
                             <Card.Text>
                                 {txtcase}
