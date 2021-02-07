@@ -3,7 +3,7 @@ import { Form, Card, Row, Col, Button } from 'react-bootstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import InputOutput from './InputOutput';
 
-function ProblemBody({ Topic, Content, Input, Output }) {
+function ProblemBody({name ,tags ,statement ,exampl, constraints, txtcase}) {
 
     const [click, setclick] = useState(false)
 
@@ -11,22 +11,23 @@ function ProblemBody({ Topic, Content, Input, Output }) {
         <div>
             <Card >
                 <Card.Body>
-                    <Card.Title className="text-center">{Topic}</Card.Title>
+                    <Card.Title className="text-center">{name}</Card.Title>
                     <Card>
                         <Card.Header>Problem Statement</Card.Header>
                         <Card.Body>
 
                             <Card.Text>
-                                {Content}
+                                {statement}
+                                {constraints}
                             </Card.Text>
                         </Card.Body>
                     </Card>
                     <br />
                     <Card>
-                        <Card.Header>Input</Card.Header>
+                        <Card.Header>Example</Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                {Input}
+                                {exampl}
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -35,20 +36,13 @@ function ProblemBody({ Topic, Content, Input, Output }) {
                         <Card.Header>Output</Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                {Output}
+                                {txtcase}
                             </Card.Text>
                         </Card.Body>
                     </Card>
                     <br />
 
-                    <Card>
-                        <Card.Header>Example</Card.Header>
-                        <Card.Body>
-
-                            <InputOutput Input={"Hello World"} Output={"Hello how are you ?"} />
-
-                        </Card.Body>
-                    </Card>
+                   
                     <br />
 
                     <Form>

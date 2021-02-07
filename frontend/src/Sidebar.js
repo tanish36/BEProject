@@ -18,7 +18,7 @@ export default function Sidebar(isLoggedIn) {
                             <Nav.Link href="/Learn" eventKey="link-2">Learn</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-3">Practice</Nav.Link>
+                            <Nav.Link href ="/AllProblem" eventKey="link-3">Practice</Nav.Link>
                         </Nav.Item>
 
                         {
