@@ -50,6 +50,8 @@ function AddContest() {
         }, (error) => {
             setsuccess(0)
         })
+        
+
         msgform.reset();
     }
 

@@ -37,7 +37,7 @@ function Contest() {
 
     if (cntt != null) {
         return (<div>
-            here
+            {cntt.cont.timestamp}
         </div>)
     } else {
 
@@ -54,9 +54,19 @@ function Contest() {
                 < Card >
                     <Card.Header>Upcoming Contests</Card.Header>
                     <ListGroup variant="flush">
-                        {localStorage.getItem("Contests") && JSON.parse(localStorage.getItem("Contests")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.title}</ListGroup.Item>)}
+                        {localStorage.getItem("Contests") && JSON.parse(localStorage.getItem("Contests")).map(cont => {
+                           let cur = new Date()
+                           let myTime = new Date(cont.timestamp)
+                           console.log(cur.getTime() +" --->>>>>" +myTime.getTime())
+                           if(myTime.getTime() >= cur.getTime())
+                           <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.title}      </ListGroup.Item>
+                        
+                    
+                         })
+                       }
                     </ListGroup>
                 </Card>
+                
 
 
             </div >
