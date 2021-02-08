@@ -5,7 +5,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-
+#4416
 @api_view(['GET'])
 def getproblems(request):
 	dd = problem.objects.all().values()
@@ -29,7 +29,7 @@ def addproblem(request):
 			u.problem_tags = request.data['problem_tags']
 			u.problem_io = request.data['problem_io']
 			u.problem_con = request.data['problem_con']
-			u.problem_con = request.data['problem_test']
+			u.problem_test = request.data['problem_test']
 			u.save()
 			data2 = serializer.data
 			data2['id'] = u.problem_id
