@@ -44,7 +44,14 @@ class ContestService {
 
 
     // TO-DO
-    registeruser() {
+    registeruser(email, contestid) {
+        return axios.post(API_URL + "registerusercontest", {
+            email, contestid
+        })
+            .then(response => {
+                console.log(response);
+                return response.data;
+            });
 
     }
 
