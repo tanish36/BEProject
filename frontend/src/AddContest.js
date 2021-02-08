@@ -20,7 +20,7 @@ function AddContest() {
         var contest_title = event.target[1].value
         //TimeStamp
         console.log(event.target[2].value);
-        var contest_timestamp =  event.target[2].value
+        var contest_timestamp =  new Date(event.target[2].value)
         //problem name
         console.log(event.target[3].value)
         var p_name = event.target[3].value
@@ -142,14 +142,17 @@ function AddContest() {
                                         </Col>
                                     </Form.Group>
 
+
                                 <Form.Group as={Row} controlId="formHorizontalTitle">
                                         <Form.Label column sm={2}>
                                             Constrains
                                 </Form.Label>
                                         <Col sm={10}>
-                                            <Form.Control type="text" placeholder="" />
+                                            <Form.Control as="textarea" placeholder="" />
                                         </Col>
                                     </Form.Group>
+
+
                                     <Form.Group as={Row} controlId="formHorizontalTitle">
                                         <Form.Label column sm={2}>
                                             Test Case

@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react'
 import ContestService from './services/contest.service'
 import { Card, ListGroup } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
-//import Pbm from './Problem.js'
-
-
-
-function Contest() {
+import Pbm from './Problem.js'
+function AllProblem() {
 
     const [isLoading, setisLoading] = useState(false)
-    const [cntt, setcntt] = useState(null)
+    const [problem, setproblem] = useState(null)
 
     useEffect(() => {
         setisLoading(true)
-        ContestService.getcontest().then((response) => {
+        ContestService.getproblems().then((response) => {
             //console.log(response);
             setisLoading(false)
         }, (error) => {
@@ -22,23 +19,21 @@ function Contest() {
     }, [])
 
     useEffect(() => {
-        console.log(cntt)
-    }, [cntt])
+        console.log(problem)
+    }, [problem])
 
 
     function handleClick(cont) {
 
 
-        setcntt(cont);
+        setproblem(cont);
 
-        console.log(cntt)
+        console.log(problem)
 
     }
 
-    if (cntt != null) {
-        return (<div>
-            here
-        </div>)
+    if (problem != null) {
+        return <Pbm name={problem.cont.problem_name} tags={problem.cont.problem_tags}  statement={problem.cont.problem_statement} exampl={problem.cont. problem_io} constraints={problem.cont.problem_con} txtcase={problem.cont.problem_test}/>
     } else {
 
         return (
@@ -52,9 +47,9 @@ function Contest() {
 
 
                 < Card >
-                    <Card.Header>Upcoming Contests</Card.Header>
+                    <Card.Header>Problem Set</Card.Header>
                     <ListGroup variant="flush">
-                        {localStorage.getItem("Contests") && JSON.parse(localStorage.getItem("Contests")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.title}</ListGroup.Item>)}
+                        {localStorage.getItem("Problems") && JSON.parse(localStorage.getItem("Problems")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.problem_name}</ListGroup.Item>)}
                     </ListGroup>
                 </Card>
 
@@ -62,7 +57,7 @@ function Contest() {
             </div >
         )
     }
+
 }
 
-export default Contest
-
+export default AllProblem

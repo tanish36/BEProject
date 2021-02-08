@@ -1,16 +1,73 @@
 import React, { useState } from 'react'
-import ProblemBody from './ProblemBody';
+import { Form, Card, Row, Col, Button } from 'react-bootstrap';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-function Problem() {
+function Problem({name ,tags ,statement ,exampl, constraints, txtcase}) {
+
+    const [click, setclick] = useState(false)
 
     return (
+        
         <div>
-            {/*Problem Header  */}
-            {/*Problem Statement */}
-            {/*Input */}
-            {/*Sample Testcase*/}
-            {/*Submit Button */}
-            <ProblemBody Topic={"Hi "} Content={"Hello How are you ?"} Input={"Hi"} Output={"How are you"} />
+             <Card >
+                <Card.Body>
+                    <Card.Title className="text-center">  <h2>{name}</h2>        <small>Tags {tags}</small>  <br></br>
+                    <small>{constraints}</small>
+                    </Card.Title>
+                    <Card>
+                        <Card.Header>Problem Statement</Card.Header>
+                        <Card.Body>
+
+                            <Card.Text>
+                                {statement}
+                                
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <br />
+                    <Card>
+                        <Card.Header>Example</Card.Header>
+                        <Card.Body>
+                            <Card.Text>
+                                {exampl}
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <br />
+                    <Card>
+                        <Card.Header>Test Case</Card.Header>
+                        <Card.Body>
+                            <Card.Text>
+                                {txtcase}
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <br />
+
+                   
+                    <br />
+
+                    <Form>
+                        <Form.File id="formcheck-api-regular">
+                            <Form.File.Label>Upload a file</Form.File.Label>
+                            <Form.File.Input />
+                        </Form.File>
+                        <br />
+                        <Form.Group as={Row}>
+
+                            <Col sm={{ span: 2 }}>
+                                {click ? <Button type="submit" disabled>Submit</Button> : <Button type="submit">Submit</Button>}
+                            </Col>
+                        </Form.Group>
+                        {click ?
+                            <div className="Loader">
+                                <CircularProgress />
+                            </div>
+
+                            : <></>}
+                    </Form>
+                </Card.Body>
+            </Card>
         </div>
     )
 }

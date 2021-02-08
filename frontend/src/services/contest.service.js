@@ -18,6 +18,31 @@ class ContestService {
             });
     }
 
+    //get all contest
+    getcontest() {
+        return axios
+            .get(API_URL + "getallcontest")
+            .then(response => {
+                console.log(response);
+                localStorage.setItem("Contests", JSON.stringify(response.data));
+                return response.data;
+            });
+        }
+
+
+    //get all problem 
+
+    getproblems() {
+        return axios
+            .get("http://127.0.0.1:8000/problems/getproblems")
+            .then(response => {
+                //console.log(response);
+                localStorage.setItem("Problems", JSON.stringify(response.data));
+                return response.data;
+            });
+        }
+
+
     // TO-DO
     registeruser() {
 
@@ -47,9 +72,7 @@ class ContestService {
 
     }
 
-    addprobleminContest() {
-
-    }
+    
 
 }
 
