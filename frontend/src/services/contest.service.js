@@ -61,6 +61,7 @@ class ContestService {
                 duration, title, timestamp
             })
             .then(response => {
+                // localStorage.setItem("AddedContest", JSON.stringify(response.data));
                 console.log(response);
                 return response.data;
             });
@@ -73,10 +74,20 @@ class ContestService {
                 problem_name, problem_statement, problem_tags, problem_io, problem_con, problem_test
             })
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 return response.data;
             });
 
+    }
+
+    addprobleminContest(contest_id, problemid) {
+        return axios.post(API_URL + "contestproblem", {
+            contest_id, problemid
+        }).then(response => {
+            // localStorage.setItem("AddedContest", JSON.stringify(response.data));
+            console.log(response);
+            return response.data;
+        });
     }
 
 
