@@ -80,9 +80,9 @@ class ContestService {
 
     }
 
-    addprobleminContest(contest_id, problemid) {
+    addprobleminContest(contestid, problemid) {
         return axios.post(API_URL + "contestproblem", {
-            contest_id, problemid
+            contestid, problemid
         }).then(response => {
             // localStorage.setItem("AddedContest", JSON.stringify(response.data));
             console.log(response);

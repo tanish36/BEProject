@@ -153,9 +153,9 @@ const AddProblem = ({ hide, contestID }) => {
     function finish() {
         console.log(contestID)
 
-        for (var p in problems) {
+        for (var i = 0; i < problems.length; i++) {
 
-            ContestService.addprobleminContest(contestID, p.id).then((response) => {
+            ContestService.addprobleminContest(contestID, problems[i].id).then((response) => {
                 console.log(response)
                 setcounter(prevCounter => prevCounter + 1)
 
@@ -165,7 +165,7 @@ const AddProblem = ({ hide, contestID }) => {
         }
     }
 
-    if (counter > 0 && counter == problems.size()) {
+    if (counter > 0 && counter == problems.length) {
         return <Alertdism setsucess={setsuccess} theme={"success"} content={"Contest Created Successfully"} heading={"Success"} />
     }
 
