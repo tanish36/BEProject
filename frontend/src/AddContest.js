@@ -36,17 +36,6 @@ function AddContest() {
 
     }
 
-    // if (contestID != undefined && contestID != "") {
-    //     return (
-    //         <>
-    //             { localStorage.getItem("user") != undefined ? <AddProblem contestID={contestID} />
-    //                 : <Redirect to="/Signin" />
-    //             }
-    //         </>
-    //     )
-    // }
-
-
     return (
         <div className="AddContest">
             {
@@ -102,11 +91,11 @@ function AddContest() {
                                         </Col>
                                     </Form.Group>
                                 </Form>
-                                <br />
-                                {hide ? <AddProblem hide={!hide} contestID={contestID} /> : null}
 
                             </Card.Body>
                         </Card>
+                        <br />
+                        {hide ? <AddProblem hide={!hide} contestID={contestID} /> : null}
                     </> : <Redirect to="/Signin" />
             }
 
