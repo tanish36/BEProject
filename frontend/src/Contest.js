@@ -30,7 +30,6 @@ function Contest() {
                     </div> : null
             }
 
-
             < Card >
                 <Card.Header>Upcoming Contests</Card.Header>
                 <ListGroup variant="flush">
@@ -40,7 +39,7 @@ function Contest() {
                         let myTime = new Date(cont.timestamp)
                         console.log(cur.getTime() + " " + myTime.getTime())
 
-                        if (cur.getTime() < myTime.getTime())
+                        if (cur.getTime() <= myTime.getTime())
                             return <RegisterUserForContest contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
 
                     }
@@ -61,7 +60,7 @@ function Contest() {
                         console.log(cur.getTime() + " " + myTime.getTime())
 
                         if (cur.getTime() > myTime.getTime())
-                            return <RegisterUserForContest contestId={cont.contestid} topic={cont.title} />
+                            return <RegisterUserForContest contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
                     }
 
                     )
@@ -77,20 +76,27 @@ function Contest() {
 
 const RegisterUserForContest = ({ contestId, topic, timestamp }) => {
 
-    const [show, setshow] = useState(false)
+    const [show, setshow] = useState(true)
     const [isRegistered, setisRegistered] = useState(false);
 
     useEffect(() => {
 
         var dt = new Date();
+        var gt = new Date(timestamp);
 
-        if (dt.getTime() < timestamp) {
-            setshow(true);
+        if (dt.getTime() > gt.getTime()) {
+            setshow(false);
         }
 
     }, [])
 
     function handleClick(contestId) {
+
+        // abhi wala timestamp  < timestamp
+        var dt = new Date();
+        var gt = new Date(timestamp);
+
+        console.log(dt.getTime() + " " + gt.getTime())
         ContestService.getcproblem(contestId).then((response) => {
 
         }, (error) => {
@@ -112,7 +118,7 @@ const RegisterUserForContest = ({ contestId, topic, timestamp }) => {
     }
 
     return (
-        < ListGroup.Item action onClick={() => handleClick(contestId)}  > {show == false ? <Button disabled={isRegistered} onClick={() => register(contestId)}> Register </Button> : null}   {topic} </ListGroup.Item>
+        < ListGroup.Item action onClick={() => handleClick(contestId)}  > {show ? <Button disabled={isRegistered} onClick={() => register(contestId)}> Register </Button> : null}   {topic} </ListGroup.Item>
     )
 }
 

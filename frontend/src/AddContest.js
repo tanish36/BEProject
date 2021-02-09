@@ -155,7 +155,7 @@ const AddProblem = ({ hide, contestID }) => {
 
         for (var p in problems) {
 
-            ContestService.addprobleminContest(contestID, p.problemid).then((response) => {
+            ContestService.addprobleminContest(contestID, p.id).then((response) => {
                 console.log(response)
                 setcounter(prevCounter => prevCounter + 1)
 
