@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import { Form, Card, Row, Col, Button } from 'react-bootstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Compiler from './components/Compiler/Compiler';
 
-function Problem({name ,tags ,statement ,exampl, constraints, txtcase}) {
-
-    const [click, setclick] = useState(false)
+function Problem({ name, tags, statement, exampl, constraints, txtcase }) {
 
     return (
-        
+
         <div>
-             <Card >
+            <Card >
                 <Card.Body>
                     <Card.Title className="text-center">  <h2>{name}</h2>        <small>Tags {tags}</small>  <br></br>
-                    <small>{constraints}</small>
+                        <small>{constraints}</small>
                     </Card.Title>
                     <Card>
                         <Card.Header>Problem Statement</Card.Header>
@@ -20,7 +19,7 @@ function Problem({name ,tags ,statement ,exampl, constraints, txtcase}) {
 
                             <Card.Text>
                                 {statement}
-                                
+
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -44,30 +43,11 @@ function Problem({name ,tags ,statement ,exampl, constraints, txtcase}) {
                     </Card>
                     <br />
 
-                   
-                    <br />
-
-                    <Form>
-                        <Form.File id="formcheck-api-regular">
-                            <Form.File.Label>Upload a file</Form.File.Label>
-                            <Form.File.Input />
-                        </Form.File>
-                        <br />
-                        <Form.Group as={Row}>
-
-                            <Col sm={{ span: 2 }}>
-                                {click ? <Button type="submit" disabled>Submit</Button> : <Button type="submit">Submit</Button>}
-                            </Col>
-                        </Form.Group>
-                        {click ?
-                            <div className="Loader">
-                                <CircularProgress />
-                            </div>
-
-                            : <></>}
-                    </Form>
                 </Card.Body>
             </Card>
+
+            <Compiler />
+
         </div>
     )
 }

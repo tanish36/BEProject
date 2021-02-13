@@ -7,7 +7,7 @@ function Alertdism({ setsucess, theme, content, heading }) {
     if (show) {
         return (
             <Alert variant={theme} onClose={() => {
-                setsucess(2)
+                setsucess(3)
                 setShow(false)
             }} dismissible>
                 <Alert.Heading>{heading}</Alert.Heading>
