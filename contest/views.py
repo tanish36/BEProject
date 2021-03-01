@@ -22,7 +22,9 @@ def getcproblem(request):
     for i in dd:
         print(i['problemid'])
         k = problem.objects.filter(problem_id=i['problemid']).values()
-        prl.append(k)
+        for j in k:
+            prl.append(j)
+
     return Response(prl,status=200)
 
 
