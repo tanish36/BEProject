@@ -23,5 +23,6 @@ urlpatterns = [
     path('problems/', include('problems.urls')),
     path('topic/', include('topic.urls')),
     path('discuss/', include('discussion.urls')),
-    path('contest/', include('contest.urls'))
+    path('contest/', include('contest.urls')),
+    path('recommend/', include('recommend.urls')),
 ]

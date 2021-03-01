@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'contest',
     'discussion',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'recommend'
    
 ]
 
