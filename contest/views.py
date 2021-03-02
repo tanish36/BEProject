@@ -27,6 +27,18 @@ def getcproblem(request):
 
     return Response(prl,status=200)
 
+@api_view(['GET'])
+def isregister(request):
+    try:
+        dd=contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).values()
+        if len(dd)>0:
+            return Response({"message":"User Registered"},status=200)
+        else:
+            return Response({"message":"User not Registered"},status=200)
+    except Exception as ex:
+        return Response({"message":str(ex)},status =500)
+
+
 
 @api_view(['POST'])
 def contestproblempp(request):
