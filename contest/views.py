@@ -28,6 +28,15 @@ def getcproblem(request):
     return Response(prl,status=200)
 
 @api_view(['GET'])
+def contestinfo(request):
+    try:
+        zz = contest2.objects.filter(contestid=request.GET['id']).values()
+        return Response(zz,status=200)
+    except Exception as ex:
+        return Response({"message":str(ex)},status =500)
+
+
+@api_view(['GET'])
 def isregister(request):
     try:
         dd=contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).values()
