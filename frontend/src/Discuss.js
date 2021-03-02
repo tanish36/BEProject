@@ -4,13 +4,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import DiscussHeader from './DiscussHeader'
 import DiscussResponse from './DiscussResponse'
 import DiscussService from './services/discuss.service';
+import Alertdism from './Alertdism'
 
 function Discuss() {
 
     const [discussionId, setdiscussionId] = useState("")
     const [Clicked, setClicked] = useState(false)
     const [isLoading, setisLoading] = useState(false)
-
+    const [success, setsuccess] = useState(2);
 
     useEffect(() => {
         setisLoading(true);
@@ -48,9 +49,9 @@ function Discuss() {
         var email = JSON.parse(localStorage.getItem("user")).email
 
         DiscussService.addDiscussion(email, topic, content).then((response) => {
-
+            setsuccess(1);
         }, (error) => {
-
+            setsuccess(0);
         })
 
     }
@@ -70,6 +71,10 @@ function Discuss() {
                 </>
                     :
                     <>
+                        {success == 1 ? <Alertdism setsucess={setsuccess} theme={"success"} content={"Topic Successfully Added"} heading={"Success"} /> :
+
+                            success == 0 ? <Alertdism setsucess={setsuccess} theme={"danger"} content={"Some error occured please try again"} heading={"Failure"} /> : null
+                        }
                         <Card>
                             <Card.Header>Ask a Question</Card.Header>
                             <Card.Body>

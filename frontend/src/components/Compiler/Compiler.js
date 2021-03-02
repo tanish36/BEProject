@@ -11,8 +11,8 @@ function Compiler() {
     const [success, setsuccess] = useState(3)
     const [message, setmessage] = useState("")
 
-    let output = document.getElementById("Form.ControlOutput");
 
+    let output = document.getElementById("Form.ControlOutput");
     function handleClick(event) {
 
         sethide(true);
@@ -21,6 +21,10 @@ function Compiler() {
         var lang_id = event.target[0].value
         var source = event.target[1].value
         var input = event.target[2].value;
+
+        console.log(lang_id);
+        console.log(source);
+        console.log(input);
 
         output.innerHTML = "";
 
@@ -74,7 +78,6 @@ function Compiler() {
 
                     setisLoading(false);
                     sethide(false);
-
 
 
                     if (resp.compile_output != null) {

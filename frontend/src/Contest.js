@@ -10,6 +10,13 @@ import { duration } from '@material-ui/core';
 function Contest() {
 
     const [isLoading, setisLoading] = useState(false);
+
+
+    /*
+    
+    useState(null)
+    
+    */
     const [ccid, setccid] = useState("");
 
     useEffect(() => {
@@ -22,12 +29,11 @@ function Contest() {
         })
     }, [])
 
-
-    if(ccid!=undefined && ccid != "")
-    {
-        return<Cct ccid = {ccid} />
+    // ccid != null 
+    if (ccid != undefined && ccid != "") {
+        return <Cct ccid={ccid} />
     }
-    else{
+    else {
         return (
             <div>
                 {
@@ -36,57 +42,57 @@ function Contest() {
                             <CircularProgress />
                         </div> : null
                 }
-    
+
                 < Card >
                     <Card.Header>Upcoming Contests</Card.Header>
                     <ListGroup variant="flush">
                         {localStorage.getItem("Contests") && JSON.parse(localStorage.getItem("Contests")).map(cont => {
-    
+
                             let cur = new Date()
                             let myTime = new Date(cont.timestamp)
-                            
-    
+
+
                             if (cur.getTime() <= myTime.getTime())
-                                return <RegisterUserForContest contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
-    
+                                return <RegisterUserForContest setccid={setccid} contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
+
                         }
                         )
                         }
                     </ListGroup>
                 </Card>
-    
+
                 <br />
-    
+
                 < Card >
                     <Card.Header>Past Contests</Card.Header>
                     <ListGroup variant="flush">
                         {localStorage.getItem("Contests") && JSON.parse(localStorage.getItem("Contests")).map(cont => {
-    
+
                             let cur = new Date()
                             let myTime = new Date(cont.timestamp)
-                            
-    
+
+
                             if (cur.getTime() > myTime.getTime())
-                                return <RegisterUserForContest  setccid= {setccid} contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
+                                return <RegisterUserForContest setccid={setccid} contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
                         }
-    
+
                         )
                         }
                     </ListGroup>
                 </Card>
-    
-    
+
+
             </div >
         )
     }
 
 }
 
-const RegisterUserForContest = ({ contestId, topic, timestamp, setccid} ) => {
+const RegisterUserForContest = ({ contestId, topic, timestamp, setccid }) => {
 
     const [show, setshow] = useState(true)
     const [isRegistered, setisRegistered] = useState(false);
-   
+
     useEffect(() => {
 
         var dt = new Date();
@@ -105,7 +111,27 @@ const RegisterUserForContest = ({ contestId, topic, timestamp, setccid} ) => {
         var gt = new Date(timestamp);
 
         console.log(dt.getTime() + " " + gt.getTime())
+
+        /*
+         var obj = {
+
+            ...
+         }
+
+         setccid(obj);
+        */
+
+
+        /*
+        var obj = {
+
+            ...
+         }
+          
+         localStorage.setItem("Temporary Storage", JSON.stringify(obj));
         
+        */
+
         setccid(contestId);
         console.log(contestId)
     }
