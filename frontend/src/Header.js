@@ -29,7 +29,7 @@ export default function Header({ logOut, loggedIn }) {
         <Navbar bg="dark" variant="dark" fixed="top">
             <Navbar.Brand href="#home">CodeSchool</Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="./Homepage">Home</Nav.Link>
                 <Nav.Link href="#features">Features</Nav.Link>
             </Nav>
 
