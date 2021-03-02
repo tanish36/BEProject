@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000/contest/";
 
 class ContestService {
-    // "getallcontest"
+    
     async getcproblem(cp_id) {
         return axios
             .get(API_URL + "getcproblem", {
