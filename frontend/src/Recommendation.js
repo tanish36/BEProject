@@ -15,7 +15,8 @@ function Recommendation() {
 
     return (
         <div>
-            <h1>{Data}</h1>
+            <h1>Recommendation System</h1>
+            {Data}
         </div>
     )
 }

@@ -18,7 +18,7 @@ export default function Sidebar(isLoggedIn) {
                             <Nav.Link href="/Learn" eventKey="link-2">Learn</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href ="/AllProblem" eventKey="link-3">Practice</Nav.Link>
+                            <Nav.Link href="/AllProblem" eventKey="link-3">Practice</Nav.Link>
                         </Nav.Item>
 
                         {
@@ -27,8 +27,8 @@ export default function Sidebar(isLoggedIn) {
                                     <Nav.Link href="/AddContent" eventKey="link-4">Add Content</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                            <Nav.Link href="/AddContest" eventKey="link-6">AddContest</Nav.Link>
-                        </Nav.Item>
+                                    <Nav.Link href="/AddContest" eventKey="link-6">AddContest</Nav.Link>
+                                </Nav.Item>
                             </> : <></>
 
                         }
@@ -36,7 +36,11 @@ export default function Sidebar(isLoggedIn) {
                         <Nav.Item>
                             <Nav.Link href="/Discuss" eventKey="link-5">Discuss</Nav.Link>
                         </Nav.Item>
-                        
+
+                        <Nav.Item>
+                            <Nav.Link href="/Recommendation" eventKey="link-5">Recommendation</Nav.Link>
+                        </Nav.Item>
+
 
                     </Nav >
 

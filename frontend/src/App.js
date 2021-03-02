@@ -16,6 +16,7 @@ import Content from './Content';
 import Discuss from './Discuss';
 import Problem from './Problem';
 import ContentEntry from './ContentEntry';
+import Recommendation from './Recommendation';
 
 export default function App() {
 
@@ -63,6 +64,7 @@ export default function App() {
               <Route exact path="/AddContest" component={AddContest} />
               <Route exact path="/AllProblem" component={AllProblem} />
               <Route exact path="/Homepage" component={Homepage} />
+              <Route exact path="/Recommendation" component={Recommendation} />
             </Switch>
           </Container>
         </Row>

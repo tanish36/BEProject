@@ -4,6 +4,7 @@ import DoughnutGraph from './Dougnut'
 import LineGraph from './Line'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
+
 function Homepage() {
 
     return (
