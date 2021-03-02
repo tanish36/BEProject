@@ -3,6 +3,8 @@ from django.utils import timezone
 import datetime as dt
 import requests
 import random
+from selenium import webdriver
+from bs4 import BeautifulSoup
 
 
 def userDetails(codeforcesHandle, clearPastProblems):
@@ -63,6 +65,7 @@ def getTags(codeforcesHandle, rank):
     data = json.dumps(jsonData)
     submissions = json.loads(data)
     submissions = submissions['result']
+    print("fetched")
     visitedProblems = {}
     wrongSubmissions = {}
     for problem in submissions:
@@ -78,6 +81,8 @@ def getTags(codeforcesHandle, rank):
         else:
             completedProblems[problem['problem']['name']] = 1
     weakTags = {}
+    weaktagsurl = {}
+    tagscurl = {}
     minSolvedCount = 0
     maxSolvedCount = 35000
     if(rank < 1200):
@@ -112,7 +117,36 @@ def getTags(codeforcesHandle, rank):
             tags[0], rank, minSolvedCount, maxSolvedCount)
         if(len(weakTags) == 4):
             break
-    return weakTags
+    print("tags done /n browser started")
+    browser = webdriver.Chrome()
+    #chrome_options.add_argument("--headless")
+    for tags in sorted(wrongSubmissions.items(), key=lambda x: x[1], reverse=True):
+        browser.get('https://www.youtube.com/results?search_query=coding+problem+example+on+'+tags[0]+'&page&utm_source=opensearch')
+        user_data = browser.find_elements_by_xpath('//*[@id="video-title"]')
+        links = []
+        for i in user_data:
+           links.append(i.get_attribute('href'))
+           if len(links) == 4:
+             break
+        weaktagsurl[tags[0]] = links
+        link2 = []
+        url = "http://www.google.com/search?q=" + 'hackerearth codemonk '+tags[0]+' algorithm'
+        browser.get(url)
+        soup = BeautifulSoup(browser.page_source, 'html.parser')
+        search = soup.find_all('div', class_="yuRUbf")
+        for h in search:
+            link2.append(h.a.get('href'))
+            if len(link2) == 4:
+           	 break
+        tagscurl[tags[0]] = link2
+
+        if(len(weaktagsurl) == 4):
+            break
+    browser.quit()
+    print(weakTags,weaktagsurl,tagscurl)
+
+    return weakTags,weaktagsurl,tagscurl
+
 
 
 def getProblems(tag, rank, minSolvedCount, maxSolvedCount):

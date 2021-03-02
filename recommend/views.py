@@ -13,9 +13,9 @@ def login(request):
 
     dt_object = convertUnixTime(userInfo['lastOnlineTimeSeconds'])
 
-    weakTags = getTags(userInfo['handle'], userInfo['rating'])
+    weakTags,weaktagsvurl,tagscurl = getTags(userInfo['handle'], userInfo['rating'])
 
-    return Response({'user': userInfo, 'lastOnline': dt_object, 'tags': weakTags},status=201)
+    return Response({'user': userInfo, 'lastOnline': dt_object, 'tags': weakTags,'vurls':weaktagsvurl,'curls':tagscurl},status=201)
 
 @api_view(['GET'])
 def futureContests(request):
