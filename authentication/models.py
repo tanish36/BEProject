@@ -16,3 +16,7 @@ class submissions(models.Model):
     wa = models.IntegerField()
     tle = models.IntegerField()
 
+class history(models.Model):
+    user_id = models.ForeignKey(user,on_delete=models.CASCADE)
+    rank = models.IntegerField()
+    timestamp = models.DateTimeField()

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import user
 from .serializer import userserializer,loginSerializer
+from .models import user, submissions, history
+from .serializer import userserializer,loginSerializer, submissionsSerializer, historySerializer
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
@@ -54,6 +56,64 @@ def loginView(request):
 	except Exception as ex:
 		return Response({"message":ex},status =500)
 			 
+
+
+@api_view(['GET'])
+def getHistory(request):
+	return history.objects.filter(user_id=request.data['user_id'])
+
+@api_view(['POST'])
+def saveHistory(request):
+    try:
+        serializer = historySerializer(data = request.data)
+        if serializer.is_valid():
+            u = history()
+            u.user_id = request.data['user_id']
+            u.rank = request.data['rank']
+            u.timestamp = request.data['timestamp']
+            u.save()
+            k = serializer.data
+            k['id']=u.user_id
+            
+            return Response(k,status=200)
+        else:
+            return Response(serializer.errors, status=400)
+    except Exception as ex:
+        return Response({"message":str(ex)},status =500)
+
+
+
+
+@api_view(['GET'])
+def getGraph(request):
+	return submissions.objects.filter(user_id=request.data['user_id'])
+
+@api_view(['POST'])
+def saveGraph(request):
+	try:
+		serializer = submissionsSerializer(data = request.data)
+		if serializer.is_valid():
+			u = submissions.objects.filter(user_id=request.data['user_id']).values()
+			if len(u) == 0:
+				h = submissions()
+				h.user_id = request.data['user_id']
+				h.ac = 0
+				h.wa = 0
+				h.tle = 0
+				h.save()
+			if ("ac"==request.data['status']):
+				return submissions.objects.filter(user_id=request.data['user_id']).update(ac=F("ac")+1)
+			if ("wa"==request.data['status']):
+				return submissions.objects.filter(uder_id=request.data['user_id']).update(wa=F("wa")+1)
+			if ("tle"==request.data['status']):
+				return submissions.objects.filter(uswr_id=request.data['user_id']).update(tle=F("tle")+1)
+			return Response(status=400,data={"msg":"Wrong Status"})
+		else:
+			return Response(serializer.errors, status=400)
+	except Exception as ex:
+		return Response({"message":ex},status =500)
+
+
 
 
 
