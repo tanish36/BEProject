@@ -9,7 +9,7 @@ import AddContent from './AddContent';
 import Contest from './Contest';
 import AddContest from './AddContest';
 import AllProblem from './AllProblem'
-
+import Homepage from './Homepage';
 import './App.css';
 import { Container, Col, Row } from 'react-bootstrap';
 import Content from './Content';
@@ -62,6 +62,7 @@ export default function App() {
               <Route exact path="/Contest" component={Contest} />
               <Route exact path="/AddContest" component={AddContest} />
               <Route exact path="/AllProblem" component={AllProblem} />
+              <Route exact path="/Homepage" component={Homepage} />
             </Switch>
           </Container>
         </Row>
