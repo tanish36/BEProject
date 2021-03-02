@@ -10,4 +10,5 @@ urlpatterns = [
     path('addcontest',views.addcontest,name = 'addcontest'),
     path('getallcontest',views.getcontest,name = 'getcontest'),
     path('isregister',views.isregister,name = 'isregister'),
+    path('updatescore',views.updatescore,name = 'updatescore'),
 ]

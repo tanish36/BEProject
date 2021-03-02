@@ -38,6 +38,19 @@ def isregister(request):
     except Exception as ex:
         return Response({"message":str(ex)},status =500)
 
+@api_view(['GET'])
+def updatescore(request):
+    try:
+        dd=contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).values()
+        print(dd)
+        print(dd[0]['score'])
+        newscore = dd[0]['score'] + int(request.GET['score'])
+        print(newscore)
+        contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).update(score=newscore)
+        return Response({"message":"score updated"},status=200)
+        
+    except Exception as ex:
+        return Response({"message":str(ex)},status =500)
 
 
 @api_view(['POST'])
