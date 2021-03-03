@@ -11,7 +11,7 @@ function Recommendation() {
 
         if (localStorage.getItem("Recommendation") == null) {
             RecommendService.getData().then((response) => {
-                setData(response)
+                setData(localStorage.getItem("Recommendation"))
             }, (error) => {
 
             })

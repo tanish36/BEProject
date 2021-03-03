@@ -39,7 +39,6 @@ function Content({ topic, content, vlink }) {
                                         height='300px'
                                         controls
                                         url={vlink}
-
                                     />
                                 </div>
                             </Card>
