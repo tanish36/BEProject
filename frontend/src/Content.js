@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Row, Col, Card } from 'react-bootstrap';
-import { Player, ControlBar, PlaybackRateMenuButton, VolumeMenuButton } from 'video-react'
+import ReactPlayer from 'react-player'
 import './Content.css';
 import "../node_modules/video-react/dist/video-react.css";
 
@@ -27,13 +27,20 @@ function Content({ topic, content, vlink }) {
                             <Card>
                                 <Card.Header> Video </Card.Header>
                                 <div className="Content__VideoAlign">
-                                    <Player playsInline fluid={false} width={700} height={300}>
+                                    {/* <Player playsInline fluid={false} width={700} height={300}>
                                         <source src={vlink} />
                                         <ControlBar>
                                             <PlaybackRateMenuButton rates={[2, 1.5, 1]} order={7.1} />
                                             <VolumeMenuButton disabled />
                                         </ControlBar>
-                                    </Player>
+                                    </Player> */}
+                                    <ReactPlayer
+                                        width='700px'
+                                        height='300px'
+                                        controls
+                                        url={vlink}
+
+                                    />
                                 </div>
                             </Card>
                         </Col>
