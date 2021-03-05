@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import problem
+from .models import *
 from .serializer import problemserializer
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
@@ -16,6 +16,31 @@ def getproblemsid(request):
 	dd = problem.objects.all().filter(problem_id=request.GET['problem_id']).values()
 	return Response(dd)
 
+@api_view(['POST'])
+def updatenos(request):
+	dd = problem.objects.all().filter(problem_id=request.GET['problem_id']).values()
+	z = dd[0]['problem_noofsubmission']+1
+	problem.objects.all().filter(problem_id=request.GET['problem_id']).update(problem_noofsubmission=z)
+	return Response({"message":"updated"},status=200)
+
+@api_view(['POST'])
+def problemfeedback(request):
+	try:
+		#serializer = problemserializer(data = request.data)
+		#if serializer.is_valid():
+			u = problemfeedback()
+			#u.problem_id = request.data['problem_id']
+			u.problem_feedback = request.data['problem_feedback']
+			u.email = request.data['email']
+			u.problem_id = request.data['problem_id']
+			u.save()
+			#data2 = serializer.data
+			#data2['id'] = u.problem_id
+			return Response({"message":"feedback saved"},status=200)
+		#else:
+			#return Response(serializer.errors, status=400)
+	except Exception as ex:
+		return Response({"message":str(ex)},status =500)
 
 @api_view(['POST'])
 def addproblem(request):
@@ -27,9 +52,12 @@ def addproblem(request):
 			u.problem_name = request.data['problem_name']
 			u.problem_statement = request.data['problem_statement']
 			u.problem_tags = request.data['problem_tags']
-			u.problem_io = request.data['problem_io']
-			u.problem_con = request.data['problem_con']
-			u.problem_test = request.data['problem_test']
+			u.problem_input = request.data['problem_input']
+			u.problem_output = request.data['problem_output']
+			u.problem_example = request.data['problem_example']
+			u.problem_samplecase = request.data['problem_samplecase']
+			u.problem_score = request.data['problem_score']
+			u.problem_noofsubmission = request.data['problem_noofsubmission']
 			u.save()
 			data2 = serializer.data
 			data2['id'] = u.problem_id
@@ -37,4 +65,4 @@ def addproblem(request):
 		else:
 			return Response(serializer.errors, status=400)
 	except Exception as ex:
-		return Response({"message":ex},status =500)
+		return Response({"message":str(ex)},status =500)
