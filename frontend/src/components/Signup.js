@@ -51,7 +51,6 @@ export default function SignUp() {
         let email = event.target[4].value;
         let password = event.target[6].value;
 
-
         AuthService.register(firstname, lastname, email, password).then((response) => {
             setsuccess(1)
             //history.push("/Signin");

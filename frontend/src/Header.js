@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Nav, Navbar, Button } from 'react-bootstrap'
 import AuthService from './services/auth.service'
+import SchoolIcon from '@material-ui/icons'
 
 
 export default function Header({ logOut, loggedIn }) {
@@ -26,8 +27,11 @@ export default function Header({ logOut, loggedIn }) {
 
     return (
 
-        <Navbar bg="dark" variant="dark" fixed="top">
-            <Navbar.Brand href="#home">CodeSchool</Navbar.Brand>
+        <Navbar bg="light" variant="light" fixed="top">
+            <Navbar.Brand href="#home">
+                {/* <SchoolIcon /> */}
+                CodeSchool
+            </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="./Homepage">Home</Nav.Link>
                 <Nav.Link href="#features">Features</Nav.Link>

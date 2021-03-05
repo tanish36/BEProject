@@ -17,6 +17,7 @@ import Discuss from './Discuss';
 import Problem from './Problem';
 import ContentEntry from './ContentEntry';
 import Recommendation from './Recommendation';
+import LearnEntry from './LearnEntry';
 
 export default function App() {
 
@@ -54,6 +55,7 @@ export default function App() {
             <Switch>
               <Route exact path="/" component={SignIn} />
               <Route exact path="/Welcome" component={Profile} />
+              <Route exact path="/LearnEntry" component={LearnEntry} />
               <Route exact path="/AddContent" component={AddContent} />
               <Route exact path="/Learn" component={ContentEntry} />
               <Route exact path="/Signup" component={SignUp} />
