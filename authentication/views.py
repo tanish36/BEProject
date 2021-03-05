@@ -61,7 +61,7 @@ def loginView(request):
 
 @api_view(['GET'])
 def getHistory(request):
-	dd = history.objects.filter(email=request.GET['email']).values()
+	dd = history.objects.filter(email=request.GET.get('email')).values()
 	return Response(dd,status=200)
 
 @api_view(['POST'])
@@ -88,7 +88,7 @@ def saveHistory(request):
 
 @api_view(['GET'])
 def getGraph(request):
-	dd = submissions.objects.filter(email=request.GET['email']).values()
+	dd = submissions.objects.filter(email=request.GET.get('email')).values()
 	return Response(dd,status=200)
 
 @api_view(['POST'])
