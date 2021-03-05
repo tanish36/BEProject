@@ -34,9 +34,9 @@ def problemfeedback(request):
 			u.email = request.data['email']
 			u.problem_id = request.data['problem_id']
 			u.save()
-			data2 = serializer.data
-			data2['id'] = u.problem_id
-			return Response(data2,status=200)
+			#data2 = serializer.data
+			#data2['id'] = u.problem_id
+			return Response({"message":"feedback saved"},status=200)
 		#else:
 			#return Response(serializer.errors, status=400)
 	except Exception as ex:
