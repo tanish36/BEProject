@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import ContentService from './services/content.service'
-import { Card, ListGroup } from 'react-bootstrap'
+import { Card, ListGroup, Badge } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Content from './Content';
+
 
 function ContentEntry() {
 
@@ -50,7 +51,7 @@ function ContentEntry() {
                 < Card >
                     <Card.Header>Learn</Card.Header>
                     <ListGroup variant="flush">
-                        {localStorage.getItem("Content") && JSON.parse(localStorage.getItem("Content")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.topic_name}</ListGroup.Item>)}
+                        {localStorage.getItem("Content") && JSON.parse(localStorage.getItem("Content")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.topic_name} <Badge variant="secondary">New</Badge></ListGroup.Item>)}
                     </ListGroup>
                 </Card>
 

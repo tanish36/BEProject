@@ -1,7 +1,7 @@
 import React from 'react';
 import Doughnut from 'react-chartjs-2';
 
-function DoughnutGraph() {
+function DoughnutGraph({ Data }) {
 
     const data = {
         labels: [
@@ -10,7 +10,7 @@ function DoughnutGraph() {
             'TLE'
         ],
         datasets: [{
-            data: [300, 50, 100],
+            data: Data,
             backgroundColor: [
                 '#FF6384',
                 '#31c110',
@@ -23,8 +23,7 @@ function DoughnutGraph() {
             ]
         }],
         text: '23%'
-    };
-
+    }
 
     return (
         <Doughnut data={data} />

@@ -3,7 +3,7 @@ import { Form, Card, Row, Col, Button } from 'react-bootstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Compiler from './components/Compiler/Compiler';
 
-function Problem({ name, tags, statement, exampl, constraints, txtcase }) {
+function Problem({ name, tags, statement, exampl, txtcase }) {
 
     return (
 
@@ -11,7 +11,6 @@ function Problem({ name, tags, statement, exampl, constraints, txtcase }) {
             <Card >
                 <Card.Body>
                     <Card.Title className="text-center">  <h2>{name}</h2>        <small>Tags {tags}</small>  <br></br>
-                        <small>{constraints}</small>
                     </Card.Title>
                     <Card>
                         <Card.Header>Problem Statement</Card.Header>

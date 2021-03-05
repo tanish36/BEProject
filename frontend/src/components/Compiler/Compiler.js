@@ -12,8 +12,11 @@ function Compiler() {
     const [message, setmessage] = useState("")
 
 
-    let output = document.getElementById("Form.ControlOutput");
+
+
     function handleClick(event) {
+
+        let output = document.getElementById("Form.ControlOutput");
 
         sethide(true);
 
@@ -57,6 +60,9 @@ function Compiler() {
 
 
     const Submit = async () => {
+
+        let output = document.getElementById("Form.ControlOutput");
+
 
         var token = localStorage.getItem("token");
 

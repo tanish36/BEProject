@@ -4,7 +4,7 @@ const API_URL = "https://judge0-extra.p.rapidapi.com/submissions";
 
 class CompilerService {
 
-    async run_code(language_id, source_code, stdin = "", expected_output = "1\n3\n5\n") {
+    async run_code(language_id, source_code, stdin = "", expected_output = "5\n") {
         return axios.post(API_URL, {
             source_code,
             stdin,

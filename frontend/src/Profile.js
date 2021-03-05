@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Form, Button, Container } from 'react-bootstrap';
 import './Profile.css';
 import DoughnutGraph from './Dougnut'
 import LineGraph from './Line'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import AuthService from './services/auth.service';
 
 function Profile() {
+
+
+    const [pieChartData, setpieChartData] = useState([])
+
+    useEffect(() => {
+        AuthService.getGraph(JSON.parse(localStorage.getItem("user")).email).then((response) => {
+            console.log(response);
+        }, (error) => {
+
+        })
+
+        AuthService.getHistory(JSON.parse(localStorage.getItem("user")).email).then((response) => {
+            console.log(response);
+        }, (error) => {
+
+        })
+
+    }, [])
+
+    var Data = [500, 300, 200]
 
     return (
         <div className="Profile">
@@ -21,7 +42,7 @@ function Profile() {
                                             <Card.Title>Submissions</Card.Title>
 
                                             <Card.Text>
-                                                <DoughnutGraph />
+                                                <DoughnutGraph Data={Data} />
                                             </Card.Text>
 
                                         </Card.Body>

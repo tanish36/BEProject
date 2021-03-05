@@ -34,6 +34,60 @@ class AuthService {
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));;
     }
+
+    getrank(email) {
+        //getrank
+
+        return axios.get(API_URL + "getrank", {
+            params: {
+                email: email
+            }
+        })
+    }
+
+    update_rank(email, rank) {
+        return axios.post(API_URL + "update_rank", {
+            email, rank
+        }).then(response => {
+            return response.data;
+        })
+    }
+
+    getHistory(email) {
+        return axios.get(API_URL + "getHistory", {
+            params: {
+                user_id: email
+            }
+        }).then(response => {
+            localStorage("History", JSON.stringify(response));
+            return response.data;
+        });
+    }
+
+    saveHistory(user_id, rank, timestamp) {
+        return axios.post(API_URL + " saveHistory", {
+            user_id, rank, timestamp
+        }).then(response => {
+            return response.data;
+        })
+    }
+
+    getGraph(email) {
+        return axios.get(API_URL + "getGraph", {
+            params: {
+                user_id: email
+            }
+        })
+    }
+
+    //ac , wa , tle
+    saveGraph(user_id, status) {
+        return axios.post(API_URL + "saveGraph", {
+            user_id, status
+        }).then(response => {
+            return response.data;
+        })
+    }
 }
 
 export default new AuthService();
