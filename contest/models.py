@@ -16,5 +16,6 @@ class contestuser(models.Model):
     contestid = models.CharField(max_length=200)
     email = models.CharField(max_length=1000)
     score = models.IntegerField(default=0)
+    problemid = models.CharField(max_length=1000,null=True)
     
 

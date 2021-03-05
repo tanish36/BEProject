@@ -51,11 +51,8 @@ def isregister(request):
 def updatescore(request):
     try:
         dd=contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).values()
-        print(dd)
-        print(dd[0]['score'])
-        newscore = dd[0]['score'] + int(request.GET['score'])
-        print(newscore)
-        contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).update(score=newscore)
+        newscore = int(request.GET['score'])
+        contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).update(score=newscore).update(problemid = request.GET['problemid'])
         return Response({"message":"score updated"},status=200)
         
     except Exception as ex:
