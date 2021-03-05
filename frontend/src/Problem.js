@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Card, Row, Col, Button } from 'react-bootstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Compiler from './components/Compiler/Compiler';
+import Compiler from './components/Compiler/CompilerV1';
 
 function Problem({ name, tags, statement, constraints, sample_case, input, output, score, nos, isContest, isRunning, cid, pid }) {
 
