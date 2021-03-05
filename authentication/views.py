@@ -10,7 +10,7 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def get_rank(request):
-	dd = user.objects.filter(email=request.GET['email']).values()
+	dd = user.objects.filter(email=request.GET.get('email')).values()
 	return Response(dd,status=200)
 
 @api_view(['POST'])
@@ -61,7 +61,7 @@ def loginView(request):
 
 @api_view(['GET'])
 def getHistory(request):
-	dd = history.objects.filter(email=request.GET.get('email')).values()
+	dd = history.objects.filter(email=request.GET['user_id']).values()
 	return Response(dd,status=200)
 
 @api_view(['POST'])
@@ -75,7 +75,7 @@ def saveHistory(request):
             u.timestamp = request.data['timestamp']
             u.save()
             k = serializer.data
-            k['email']=u.email
+            k['id']=u.id
             
             return Response(k,status=200)
         else:
@@ -85,10 +85,12 @@ def saveHistory(request):
 
 
 
+from django.db.models import F
 
 @api_view(['GET'])
 def getGraph(request):
-	dd = submissions.objects.filter(email=request.GET.get('email')).values()
+	print(request.GET['user_id'])
+	dd = submissions.objects.filter(email=request.GET['user_id']).values()
 	return Response(dd,status=200)
 
 @api_view(['POST'])
@@ -105,16 +107,20 @@ def saveGraph(request):
 				h.tle = 0
 				h.save()
 			if ("ac"==request.data['status']):
-				return submissions.objects.filter(email=request.data['email']).update(ac=F("ac")+1)
+				dd = submissions.objects.filter(email=request.data['email']).update(ac=F("ac")+1)
+				return Response(dd,status=200)
 			if ("wa"==request.data['status']):
-				return submissions.objects.filter(email=request.data['email']).update(wa=F("wa")+1)
+				dd = submissions.objects.filter(email=request.data['email']).update(wa=F("wa")+1)
+				return Response(dd,status=200)
 			if ("tle"==request.data['status']):
-				return submissions.objects.filter(email=request.data['email']).update(tle=F("tle")+1)
+				dd = submissions.objects.filter(email=request.data['email']).update(tle=F("tle")+1)
+				return Response(dd,status=200)
 			return Response(status=400,data={"msg":"Wrong Status"})
 		else:
 			return Response(serializer.errors, status=400)
 	except Exception as ex:
-		return Response({"message":ex},status =500)
+		print(ex)
+		return Response({"message":str(ex)},status =500)
 
 
 

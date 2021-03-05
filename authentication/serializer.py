@@ -14,9 +14,9 @@ class loginSerializer(serializers.ModelSerializer):
 class submissionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = submissions
-        fields = ("_all_")
+        fields = (["email"])
 
 class historySerializer(serializers.ModelSerializer):
     class Meta:
         model = history
-        fields = ("_all_")
+        fields = ("email","rank")
