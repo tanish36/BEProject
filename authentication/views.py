@@ -62,7 +62,11 @@ def loginView(request):
 @api_view(['GET'])
 def getHistory(request):
 	dd = history.objects.filter(email=request.GET['user_id']).values()
-	return Response(dd,status=200)
+	res = {"rank":[],"timestamp":[]}
+	for i in dd:
+		res['rank'].append(i['rank'])
+		res['timestamp'].append(i['timestamp'])
+	return Response(res,status=200)
 
 @api_view(['POST'])
 def saveHistory(request):
