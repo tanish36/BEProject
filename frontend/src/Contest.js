@@ -3,26 +3,17 @@ import ContestService from './services/contest.service'
 import { Button, Card, CardColumns, ListGroup } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Cct from './CContest.js'
-import { duration } from '@material-ui/core';
-
-
 
 function Contest() {
 
     const [isLoading, setisLoading] = useState(false);
 
-
-    /*
-    
-    useState(null)
-    
-    */
     const [ccid, setccid] = useState("");
+    const [isRunning, setisRunning] = useState(false)
 
     useEffect(() => {
         setisLoading(true)
         ContestService.getcontest().then((response) => {
-            //console.log(response);
             setisLoading(false)
         }, (error) => {
 
@@ -31,7 +22,8 @@ function Contest() {
 
     // ccid != null 
     if (ccid != undefined && ccid != "") {
-        return <Cct ccid={ccid} />
+        console.log("Running: " + isRunning)
+        return <Cct isRunning={isRunning} ccid={ccid} />
     }
     else {
         return (
@@ -43,6 +35,7 @@ function Contest() {
                         </div> : null
                 }
 
+
                 < Card >
                     <Card.Header>Upcoming Contests</Card.Header>
                     <ListGroup variant="flush">
@@ -53,7 +46,7 @@ function Contest() {
 
 
                             if (cur.getTime() <= myTime.getTime())
-                                return <RegisterUserForContest setccid={setccid} contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
+                                return <RegisterUserForContest setisRunning={setisRunning} setccid={setccid} duration={cont.duration} contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
 
                         }
                         )
@@ -73,7 +66,7 @@ function Contest() {
 
 
                             if (cur.getTime() > myTime.getTime())
-                                return <RegisterUserForContest setccid={setccid} contestId={cont.contestid} topic={cont.title} timestamp={cont.timestamp} />
+                                return <RegisterUserForContest setisRunning={setisRunning} setccid={setccid} contestId={cont.contestid} topic={cont.title} duration={cont.duration} timestamp={cont.timestamp} />
                         }
 
                         )
@@ -88,10 +81,11 @@ function Contest() {
 
 }
 
-const RegisterUserForContest = ({ contestId, topic, timestamp, setccid }) => {
+const RegisterUserForContest = ({ contestId, topic, timestamp, setccid, duration, setisRunning }) => {
 
-    const [show, setshow] = useState(true)
+    const [show, setshow] = useState(false)
     const [isRegistered, setisRegistered] = useState(false);
+    const [running, setrunning] = useState(false)
 
     useEffect(() => {
 
@@ -107,10 +101,21 @@ const RegisterUserForContest = ({ contestId, topic, timestamp, setccid }) => {
 
         var dt = new Date();
         var gt = new Date(timestamp);
+        var limit = new Date(gt.getTime() + (duration * 60 * 60 * 1000));
+
+        if (dt.getTime() >= gt.getTime() && limit.getTime() >= dt.getTime()) {
+            console.log("running")
+            setrunning(true);
+            setisRunning(true);
+        } else {
+            setisRunning(false);
+        }
 
         if (dt.getTime() > gt.getTime()) {
-            setshow(false);
+            setshow(true);
         }
+
+
 
     }, [])
 
@@ -138,23 +143,28 @@ const RegisterUserForContest = ({ contestId, topic, timestamp, setccid }) => {
         setisRegistered(true);
     }
 
-    if (isRegistered) {
+    if (running && isRegistered) {
         return (
-            <>
-                {
-
-                    show ?
-                        < ListGroup.Item action onClick={() => handleClick(contestId)}  > {show ? <Button disabled={isRegistered} > Registered </Button> : null}   {topic} </ListGroup.Item> :
-                        <ListGroup.Item > {show ? <Button disabled={isRegistered}> Registered </Button> : null}   {topic} </ListGroup.Item >
-
-                }
-            </>
-
+            < ListGroup.Item action onClick={() => handleClick(contestId)} > <Button disabled={true} > Enter Now </Button> {topic} </ ListGroup.Item>
         )
+    } else if (running && !isRegistered) {
+        < ListGroup.Item  > <Button onClick={() => register(contestId)} > Register  </Button> {topic} </ ListGroup.Item>
+    }
+
+    if (show == false) {
+
+        if (isRegistered) {
+
+            return (
+                < ListGroup.Item  > <Button disabled={true} > Registered </Button> {topic} </ ListGroup.Item>
+            )
+        }
+
+        return < ListGroup.Item  > <Button onClick={() => register(contestId)} > Register  </Button> {topic} </ ListGroup.Item>
     }
 
     return (
-        < ListGroup.Item action onClick={() => handleClick(contestId)}  > {show ? <Button disabled={isRegistered} onClick={() => register(contestId)}> Register </Button> : null}   {topic} </ListGroup.Item>
+        < ListGroup.Item action onClick={() => handleClick(contestId)}  > {topic} </ListGroup.Item>
     )
 }
 

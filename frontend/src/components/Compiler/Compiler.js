@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Alertdism from '../../Alertdism';
 import CompilerService from '../../services/compiler.service'
 
-function Compiler() {
+function Compiler({ pid, cid, isContest, isRunning }) {
 
     const [hide, sethide] = useState(false)
     const [isLoading, setisLoading] = useState(false)
@@ -12,7 +12,7 @@ function Compiler() {
     const [message, setmessage] = useState("")
 
 
-
+    console.log(pid + " " + cid + " " + isContest + " " + isRunning)
 
     function handleClick(event) {
 

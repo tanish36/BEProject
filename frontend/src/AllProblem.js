@@ -3,6 +3,7 @@ import ContestService from './services/contest.service'
 import { Card, ListGroup } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pbm from './Problem.js'
+
 function AllProblem() {
 
     const [isLoading, setisLoading] = useState(false)
@@ -33,7 +34,7 @@ function AllProblem() {
     }
 
     if (problem != null) {
-        return <Pbm name={problem.cont.problem_name} tags={problem.cont.problem_tags}  statement={problem.cont.problem_statement} exampl={problem.cont. problem_io} constraints={problem.cont.problem_con} txtcase={problem.cont.problem_test}/>
+        return <Pbm pid={problem.cont.problem_id} isContest={false} name={problem.cont.problem_name} tags={problem.cont.problem_tags} statement={problem.cont.problem_statement} exampl={problem.cont.problem_io} constraints={problem.cont.problem_con} txtcase={problem.cont.problem_test} />
     } else {
 
         return (

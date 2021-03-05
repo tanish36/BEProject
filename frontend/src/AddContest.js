@@ -55,7 +55,7 @@ function AddContest() {
                                 <Form id="myForm" className="form" ref={form => msgform = form} onSubmit={handleClick}>
 
                                     <Form.Group as={Row} controlId="Form.SelectCustom">
-                                        <Form.Label column sm={2} >Duration</Form.Label>
+                                        <Form.Label column sm={2} >Duration (in hrs)</Form.Label>
                                         <Col sm={10}>
                                             <Form.Control disabled={hide} as="select" custom >
                                                 <option>1</option>
@@ -76,11 +76,11 @@ function AddContest() {
 
                                     <Form.Group as={Row} controlId="formHorizontalTimestamp">
                                         <Form.Label column sm={2}>
-                                            TimeStamp
+                                            Date
                                 </Form.Label>
 
                                         <Col sm={10}>
-                                            <Form.Control disabled={hide} type="date" placeholder="DD/MM/YY" />
+                                            <Form.Control disabled={hide} type="datetime-local" />
                                         </Col>
 
                                     </Form.Group>

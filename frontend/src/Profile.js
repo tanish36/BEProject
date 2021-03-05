@@ -19,9 +19,6 @@ function Profile() {
 
             AuthService.getGraph(JSON.parse(localStorage.getItem("user")).email).then((response) => {
 
-                //console.log(response[0])
-                //console.log([response[0].ac + " " + response[0].wa + " " + response[0].tle])
-
                 console.log(response)
 
                 if (response.length == 0)
