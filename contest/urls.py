@@ -12,4 +12,5 @@ urlpatterns = [
     path('isregister',views.isregister,name = 'isregister'),
     path('updatescore',views.updatescore,name = 'updatescore'),
     path('contestinfo',views.contestinfo,name = 'contestinfo'),
+    path('getscore',views.getscore,name = 'getscore'),
 ]

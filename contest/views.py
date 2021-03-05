@@ -58,6 +58,17 @@ def updatescore(request):
     except Exception as ex:
         return Response({"message":str(ex)},status =500)
 
+@api_view(['GET'])
+def getscore(request):
+    try:
+        dd=contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).values()
+        score = {}
+        for i in dd:
+            score.[dd[i]['problemid']]=dd[i]['score']
+        return Response(score,status=200)
+        
+    except Exception as ex:
+        return Response({"message":str(ex)},status =500)
 
 @api_view(['POST'])
 def contestproblempp(request):
