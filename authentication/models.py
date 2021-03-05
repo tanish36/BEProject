@@ -11,12 +11,12 @@ class user(models.Model):
     rank = models.IntegerField(default = 500,null=True)
 
 class submissions(models.Model):
-    Username = models.ForeignKey(user,on_delete=models.CASCADE)
+    email = models.TextField(null=True)
     ac = models.IntegerField()
     wa = models.IntegerField()
     tle = models.IntegerField()
 
 class history(models.Model):
-    user_id = models.ForeignKey(user,on_delete=models.CASCADE)
+    email = models.TextField(null=True)
     rank = models.IntegerField()
     timestamp = models.DateTimeField()

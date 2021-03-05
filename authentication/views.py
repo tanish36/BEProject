@@ -10,7 +10,8 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def get_rank(request):
-	return user.objects.filter(email=request.data['email'])
+	dd = user.objects.filter(email=request.GET['email']).values()
+	return Response(dd,status=200)
 
 @api_view(['POST'])
 def update_rank(request):
@@ -60,7 +61,8 @@ def loginView(request):
 
 @api_view(['GET'])
 def getHistory(request):
-	return history.objects.filter(user_id=request.data['user_id'])
+	dd = history.objects.filter(email=request.GET['email']).values()
+	return Response(dd,status=200)
 
 @api_view(['POST'])
 def saveHistory(request):
@@ -68,12 +70,12 @@ def saveHistory(request):
         serializer = historySerializer(data = request.data)
         if serializer.is_valid():
             u = history()
-            u.user_id = request.data['user_id']
+            u.email = request.data['email']
             u.rank = request.data['rank']
             u.timestamp = request.data['timestamp']
             u.save()
             k = serializer.data
-            k['id']=u.user_id
+            k['email']=u.email
             
             return Response(k,status=200)
         else:
@@ -86,27 +88,28 @@ def saveHistory(request):
 
 @api_view(['GET'])
 def getGraph(request):
-	return submissions.objects.filter(user_id=request.data['user_id'])
+	dd = submissions.objects.filter(email=request.GET['email']).values()
+	return Response(dd,status=200)
 
 @api_view(['POST'])
 def saveGraph(request):
 	try:
 		serializer = submissionsSerializer(data = request.data)
 		if serializer.is_valid():
-			u = submissions.objects.filter(user_id=request.data['user_id']).values()
+			u = submissions.objects.filter(email=request.data['email']).values()
 			if len(u) == 0:
 				h = submissions()
-				h.user_id = request.data['user_id']
+				h.email = request.data['email']
 				h.ac = 0
 				h.wa = 0
 				h.tle = 0
 				h.save()
 			if ("ac"==request.data['status']):
-				return submissions.objects.filter(user_id=request.data['user_id']).update(ac=F("ac")+1)
+				return submissions.objects.filter(email=request.data['email']).update(ac=F("ac")+1)
 			if ("wa"==request.data['status']):
-				return submissions.objects.filter(uder_id=request.data['user_id']).update(wa=F("wa")+1)
+				return submissions.objects.filter(email=request.data['email']).update(wa=F("wa")+1)
 			if ("tle"==request.data['status']):
-				return submissions.objects.filter(uswr_id=request.data['user_id']).update(tle=F("tle")+1)
+				return submissions.objects.filter(email=request.data['email']).update(tle=F("tle")+1)
 			return Response(status=400,data={"msg":"Wrong Status"})
 		else:
 			return Response(serializer.errors, status=400)

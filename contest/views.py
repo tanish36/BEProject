@@ -64,7 +64,7 @@ def getscore(request):
         dd=contestuser.objects.filter(contestid=request.GET['contestid'],email = request.GET['email']).values()
         score = {}
         for i in dd:
-            score.[dd[i]['problemid']]=dd[i]['score']
+            score[dd[i]['problemid']]=dd[i]['score']
         return Response(score,status=200)
         
     except Exception as ex:

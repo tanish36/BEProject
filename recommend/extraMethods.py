@@ -5,6 +5,8 @@ import requests
 import random
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 
 
 def userDetails(codeforcesHandle, clearPastProblems):
@@ -118,7 +120,9 @@ def getTags(codeforcesHandle, rank):
         if(len(weakTags) == 4):
             break
     print("tags done /n browser started")
-    browser = webdriver.Chrome()
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    browser = webdriver.Chrome(chrome_options=chrome_options)
     #chrome_options.add_argument("--headless")
     for tags in sorted(wrongSubmissions.items(), key=lambda x: x[1], reverse=True):
         browser.get('https://www.youtube.com/results?search_query=coding+problem+example+on+'+tags[0]+'&page&utm_source=opensearch')
