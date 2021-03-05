@@ -57,7 +57,9 @@ class AuthService {
                 user_id: email
             }
         });
-        localStorage("History", JSON.stringify(response));
+
+        localStorage.setItem("History", JSON.stringify(response.data));
+
         return response.data;
     }
 

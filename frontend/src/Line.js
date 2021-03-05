@@ -18,6 +18,8 @@ export default function LineGraph({ TimeStamp, Datapoints }) {
         ]
     }
 
+    console.log(TimeStamp + " " + Datapoints)
+
     return (
         <div>
             <Line
