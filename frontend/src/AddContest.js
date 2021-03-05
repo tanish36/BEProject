@@ -95,8 +95,7 @@ function AddContest() {
                             </Card.Body>
                         </Card>
                         <br />
-                        <AddProblem hide={!hide} contestID={contestID} />
-                        {/* {hide ?  : null} */}
+                        {hide ? <AddProblem hide={!hide} contestID={contestID} /> : null}
                     </> : <Redirect to="/Signin" />
             }
 
@@ -231,8 +230,6 @@ const AddProblem = ({ hide, contestID }) => {
                                 <Form.Control type="text" placeholder="" />
                             </Col>
                         </Form.Group>
-
-
 
                         <Form.Group as={Row} controlId="formHorizontalTitle">
                             <Form.Label column sm={2}>
