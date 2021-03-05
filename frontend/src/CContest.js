@@ -35,7 +35,12 @@ function CContest({ ccid, isRunning }) {
     }
 
     if (problem != null) {
-        return <Pbm cid={ccid} pid={problem.cont.problem_id} isRunning={isRunning} isContest={true} name={problem.cont.problem_name} tags={problem.cont.problem_tags} statement={problem.cont.problem_statement} exampl={problem.cont.problem_io} constraints={problem.cont.problem_con} txtcase={problem.cont.problem_test} />
+        return <Pbm cid={ccid} pid={problem.cont.problem_id} isRunning={isRunning} isContest={true}
+            name={problem.cont.problem_name} tags={problem.cont.problem_tags} statement={problem.cont.problem_statement}
+            constraints={problem.cont.problem_example} sample_case={problem.cont.problem_samplecase}
+            input={problem.cont.problem_input} output={problem.cont.problem_output}
+            score={problem.cont.problem_score}
+            nos={problem.cont.problem_noofsubmission} />
     }
     else {
         return (
