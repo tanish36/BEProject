@@ -1,11 +1,10 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-export default function LineGraph() {
+export default function LineGraph({ TimeStamp, Datapoints }) {
 
     const state = {
-        labels: ['1', '2', '3',
-            '4', '5'],
+        labels: TimeStamp,
         datasets: [
             {
                 label: 'Rating',
@@ -14,10 +13,12 @@ export default function LineGraph() {
                 backgroundColor: 'rgba(75,192,192,1)',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
-                data: [65, 59, 80, 81, 56]
+                data: Datapoints
             }
         ]
     }
+
+    console.log(TimeStamp + " " + Datapoints)
 
     return (
         <div>
@@ -26,7 +27,7 @@ export default function LineGraph() {
                 options={{
                     title: {
                         display: false,
-                        text: 'Average Rainfall per month',
+                        text: 'Average Rating per contest',
                         fontSize: 20
                     },
                     legend: {

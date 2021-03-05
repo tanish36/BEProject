@@ -10,23 +10,53 @@ function Profile() {
 
 
     const [pieChartData, setpieChartData] = useState([])
+    const [historyData, sethistoryData] = useState([])
+    const [historytimestamps, sethistorytimestamps] = useState([])
+    var BarData = [];
+    var Timestamps = [];
 
     useEffect(() => {
-        AuthService.getGraph(JSON.parse(localStorage.getItem("user")).email).then((response) => {
-            console.log(response);
-        }, (error) => {
 
-        })
+        const fetching = async function () {
 
-        AuthService.getHistory(JSON.parse(localStorage.getItem("user")).email).then((response) => {
-            console.log(response);
-        }, (error) => {
+            AuthService.getGraph(JSON.parse(localStorage.getItem("user")).email).then((response) => {
 
-        })
+                //console.log(response[0])
+                //console.log([response[0].ac + " " + response[0].wa + " " + response[0].tle])
+                setpieChartData([response[0].wa, response[0].ac, response[0].tle]);
+
+            }, (error) => {
+            });
+
+            AuthService.getHistory(JSON.parse(localStorage.getItem("user")).email).then((resp) => {
+
+                resp.map((key) => {
+
+                    sethistoryData(oldArray => [...oldArray, key.rank]);
+                    sethistorytimestamps(oldArray => [...oldArray, key.timestamp]);
+
+
+                })
+
+                console.log(historyData);
+                console.log(historytimestamps)
+
+
+            }, (error) => {
+
+                console.log(error)
+            });
+
+
+        }
+
+        fetching();
+
 
     }, [])
 
     var Data = [500, 300, 200]
+
 
     return (
         <div className="Profile">
@@ -42,7 +72,7 @@ function Profile() {
                                             <Card.Title>Submissions</Card.Title>
 
                                             <Card.Text>
-                                                <DoughnutGraph Data={Data} />
+                                                <DoughnutGraph Data={pieChartData} />
                                             </Card.Text>
 
                                         </Card.Body>
@@ -93,7 +123,7 @@ function Profile() {
                                             <Card.Title>Performance</Card.Title>
 
                                             <Card.Text>
-                                                <LineGraph />
+                                                <LineGraph TimeStamp={historytimestamps} Datapoints={historyData} />
                                             </Card.Text>
 
                                         </Card.Body>

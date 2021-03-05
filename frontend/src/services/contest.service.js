@@ -3,7 +3,18 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000/contest/";
 
 class ContestService {
-    
+
+
+    async isRegistered(cid, email) {
+        const response = await axios.get(API_URL + "isregister", {
+            params: {
+                contestid: cid,
+                email: email
+            }
+        });
+        return response.data;
+    }
+
     async getcproblem(cp_id) {
         return axios
             .get(API_URL + "getcproblem", {
