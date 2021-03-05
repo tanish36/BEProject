@@ -10,16 +10,20 @@ function Profile() {
 
 
     const [pieChartData, setpieChartData] = useState([])
+    const [historyData, sethistoryData] = useState([])
 
     useEffect(() => {
         AuthService.getGraph(JSON.parse(localStorage.getItem("user")).email).then((response) => {
-            console.log(response);
+
+            setpieChartData([response.ac, response.wa, response.tle]);
+            console.log(pieChartData)
+
         }, (error) => {
 
         })
 
         AuthService.getHistory(JSON.parse(localStorage.getItem("user")).email).then((response) => {
-            console.log(response);
+            console.log("GET HISTORY" + response);
         }, (error) => {
 
         })
@@ -27,6 +31,8 @@ function Profile() {
     }, [])
 
     var Data = [500, 300, 200]
+    var BarData = [50, 60, 35, 40];
+    var Timestamps = [1, 2, 3, 4];
 
     return (
         <div className="Profile">
@@ -93,7 +99,7 @@ function Profile() {
                                             <Card.Title>Performance</Card.Title>
 
                                             <Card.Text>
-                                                <LineGraph />
+                                                <LineGraph TimeStamp={Timestamps} Datapoints={BarData} />
                                             </Card.Text>
 
                                         </Card.Body>

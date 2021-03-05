@@ -95,6 +95,16 @@ const RegisterUserForContest = ({ contestId, topic, timestamp, setccid }) => {
 
     useEffect(() => {
 
+        let email = JSON.parse(localStorage.getItem("user")).email;
+        ContestService.isRegistered(contestId, email).then((response) => {
+            console.log(response)
+            if (response.message === "User Registered") {
+                setisRegistered(true);
+            }
+        }, (error) => {
+
+        })
+
         var dt = new Date();
         var gt = new Date(timestamp);
 
@@ -112,26 +122,6 @@ const RegisterUserForContest = ({ contestId, topic, timestamp, setccid }) => {
 
         console.log(dt.getTime() + " " + gt.getTime())
 
-        /*
-         var obj = {
-
-            ...
-         }
-
-         setccid(obj);
-        */
-
-
-        /*
-        var obj = {
-
-            ...
-         }
-          
-         localStorage.setItem("Temporary Storage", JSON.stringify(obj));
-        
-        */
-
         setccid(contestId);
         console.log(contestId)
     }
@@ -146,6 +136,21 @@ const RegisterUserForContest = ({ contestId, topic, timestamp, setccid }) => {
         })
 
         setisRegistered(true);
+    }
+
+    if (isRegistered) {
+        return (
+            <>
+                {
+
+                    show ?
+                        < ListGroup.Item action onClick={() => handleClick(contestId)}  > {show ? <Button disabled={isRegistered} > Registered </Button> : null}   {topic} </ListGroup.Item> :
+                        <ListGroup.Item > {show ? <Button disabled={isRegistered}> Registered </Button> : null}   {topic} </ListGroup.Item >
+
+                }
+            </>
+
+        )
     }
 
     return (
