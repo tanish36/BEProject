@@ -6,5 +6,6 @@ urlpatterns = [
 
     path('getproblems',views.getproblems,name = 'getproblems'),
     path('getproblemsid',views.getproblemsid,name = 'getproblemsid'),
-    path('addproblem',views.addproblem,name = 'addproblem')
+    path('addproblem',views.addproblem,name = 'addproblem'),
+    path('problemfeedback',views.problemfeedback,name = 'problemfeedback')
 ]
