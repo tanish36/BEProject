@@ -24,9 +24,10 @@ def updatenos(request):
 	return Response({"message":"updated"},status=200)
 
 @api_view(['POST'])
-def problemfeedback(request):
+def problemfeedbacki(request):
 	try:
 		#serializer = problemserializer(data = request.data)
+			print(request.data)
 		#if serializer.is_valid():
 			u = problemfeedback()
 			#u.problem_id = request.data['problem_id']
