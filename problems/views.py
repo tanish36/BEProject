@@ -16,10 +16,10 @@ def getproblemsid(request):
 	dd = problem.objects.all().filter(problem_id=request.GET['problem_id']).values()
 	return Response(dd)
 
-@api_view(['POST'])
+@api_view(['GET'])
 def updatenos(request):
 	dd = problem.objects.all().filter(problem_id=request.GET['problem_id']).values()
-	z = dd[0]['problem_noofsubmission']+1
+	z = int(dd[0]['problem_noofsubmission'])+1
 	problem.objects.all().filter(problem_id=request.GET['problem_id']).update(problem_noofsubmission=z)
 	return Response({"message":"updated"},status=200)
 
