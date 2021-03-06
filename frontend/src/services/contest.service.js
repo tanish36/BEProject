@@ -100,6 +100,24 @@ class ContestService {
         });
     }
 
+    async updatenos(problem_id) {
+        return axios.get("http://127.0.0.1:8000/problems/updatenos", {
+            params: {
+                problem_id: problem_id
+            }
+        }).then(response => {
+            return response.data;
+        })
+    }
+
+    async problemfeedback(email, problem_id, problem_feedback) {
+        return axios.post("http://127.0.0.1:8000/problems/problemfeedback", {
+            email, problem_id, problem_feedback
+        }).then(response => {
+            return response.data;
+        })
+    }
+
 }
 
 export default new ContestService();
