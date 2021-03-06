@@ -12,8 +12,6 @@ function Profile() {
     const [pieChartData, setpieChartData] = useState([])
     const [historyData, sethistoryData] = useState([])
     const [historytimestamps, sethistorytimestamps] = useState([])
-    var BarData = [];
-    var Timestamps = [];
 
     useEffect(() => {
 
@@ -21,26 +19,19 @@ function Profile() {
 
             AuthService.getGraph(JSON.parse(localStorage.getItem("user")).email).then((response) => {
 
-                //console.log(response[0])
-                //console.log([response[0].ac + " " + response[0].wa + " " + response[0].tle])
-                setpieChartData([response[0].wa, response[0].ac, response[0].tle]);
+                console.log(response)
+
+                if (response.length == 0)
+                    setpieChartData([0, 0, 0])
+                else
+                    setpieChartData([response[0].wa, response[0].ac, response[0].tle]);
 
             }, (error) => {
             });
 
             AuthService.getHistory(JSON.parse(localStorage.getItem("user")).email).then((resp) => {
-
-                resp.map((key) => {
-
-                    sethistoryData(oldArray => [...oldArray, key.rank]);
-                    sethistorytimestamps(oldArray => [...oldArray, key.timestamp]);
-
-
-                })
-
-                console.log(historyData);
-                console.log(historytimestamps)
-
+                sethistoryData(resp.rank);
+                sethistorytimestamps(resp.timestamp)
 
             }, (error) => {
 

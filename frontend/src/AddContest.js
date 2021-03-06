@@ -55,7 +55,7 @@ function AddContest() {
                                 <Form id="myForm" className="form" ref={form => msgform = form} onSubmit={handleClick}>
 
                                     <Form.Group as={Row} controlId="Form.SelectCustom">
-                                        <Form.Label column sm={2} >Duration</Form.Label>
+                                        <Form.Label column sm={2} >Duration (in hrs)</Form.Label>
                                         <Col sm={10}>
                                             <Form.Control disabled={hide} as="select" custom >
                                                 <option>1</option>
@@ -76,11 +76,11 @@ function AddContest() {
 
                                     <Form.Group as={Row} controlId="formHorizontalTimestamp">
                                         <Form.Label column sm={2}>
-                                            TimeStamp
+                                            Date
                                 </Form.Label>
 
                                         <Col sm={10}>
-                                            <Form.Control disabled={hide} type="date" placeholder="DD/MM/YY" />
+                                            <Form.Control disabled={hide} type="datetime-local" />
                                         </Col>
 
                                     </Form.Group>
@@ -129,16 +129,22 @@ const AddProblem = ({ hide, contestID }) => {
         var p_tags = event.target[3].value
         //problem eg 
         console.log(event.target[4].value)
-        var p_example = event.target[4].value
+        var p_constr = event.target[4].value
         //problem const
         console.log(event.target[5].value)
-        var p_constr = event.target[5].value
+        var p_sample = event.target[5].value
         //problem test case
         console.log(event.target[6].value)
-        var p_txtcase = event.target[6].value
+        var p_input = event.target[6].value
+
+        console.log(event.target[7].value)
+        var p_output = event.target[7].value
+
+        console.log(event.target[8].value)
+        var p_score = parseInt(event.target[8].value)
 
 
-        ContestService.addproblem(p_name, p_statement, p_tags, p_example, p_constr, p_txtcase).then((response) => {
+        ContestService.addproblem(p_name, p_statement, p_tags, p_constr, p_sample, p_input, p_output, p_score).then((response) => {
             console.log(response)
             setproblems(oldArray => [...oldArray, response])
             setsuccess(1)
@@ -225,11 +231,9 @@ const AddProblem = ({ hide, contestID }) => {
                             </Col>
                         </Form.Group>
 
-
-
                         <Form.Group as={Row} controlId="formHorizontalTitle">
                             <Form.Label column sm={2}>
-                                Example
+                                Constraints
                                 </Form.Label>
                             <Col sm={10}>
                                 <Form.Control as="textarea" rows={4} placeholder="" />
@@ -239,7 +243,7 @@ const AddProblem = ({ hide, contestID }) => {
 
                         <Form.Group as={Row} controlId="formHorizontalTitle">
                             <Form.Label column sm={2}>
-                                Constraints
+                                Sample Case
                                 </Form.Label>
                             <Col sm={10}>
                                 <Form.Control as="textarea" placeholder="" />
@@ -249,10 +253,28 @@ const AddProblem = ({ hide, contestID }) => {
 
                         <Form.Group as={Row} controlId="formHorizontalTitle">
                             <Form.Label column sm={2}>
-                                Test Case
+                                Input
                                 </Form.Label>
                             <Col sm={10}>
                                 <Form.Control as="textarea" rows={4} placeholder="" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} controlId="formHorizontalTitle">
+                            <Form.Label column sm={2}>
+                                Output
+                                </Form.Label>
+                            <Col sm={10}>
+                                <Form.Control as="textarea" rows={4} placeholder="" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} controlId="formHorizontalTitle">
+                            <Form.Label column sm={2}>
+                                Score
+                                </Form.Label>
+                            <Col sm={10}>
+                                <Form.Control type="text" placeholder="" />
                             </Col>
                         </Form.Group>
 

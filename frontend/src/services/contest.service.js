@@ -79,13 +79,12 @@ class ContestService {
 
     }
 
-    async addproblem(problem_name, problem_statement, problem_tags, problem_io, problem_con, problem_test) {
+    async addproblem(problem_name, problem_statement, problem_tags, problem_example, problem_samplecase, problem_input, problem_output, problem_score, problem_noofsubmission = 0) {
         return axios
             .post("http://127.0.0.1:8000/problems/addproblem", {
-                problem_name, problem_statement, problem_tags, problem_io, problem_con, problem_test
+                problem_name, problem_statement, problem_tags, problem_example, problem_samplecase, problem_input, problem_output, problem_score, problem_noofsubmission
             })
             .then(response => {
-                //console.log(response);
                 return response.data;
             });
 

@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { Form, Card, Row, Col, Button } from 'react-bootstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Compiler from './components/Compiler/Compiler';
+import Compiler from './components/Compiler/CompilerV1';
 
-function Problem({ name, tags, statement, exampl, txtcase }) {
+function Problem({ name, tags, statement, constraints, sample_case, input, output, score, nos, isContest, isRunning, cid, pid }) {
 
     return (
 
         <div>
             <Card >
                 <Card.Body>
-                    <Card.Title className="text-center">  <h2>{name}</h2>        <small>Tags {tags}</small>  <br></br>
+                    <Card.Title className="text-center">  <h2>{name}</h2> <small>Tags {tags}</small>  <br></br>
                     </Card.Title>
                     <Card>
                         <Card.Header>Problem Statement</Card.Header>
@@ -24,19 +24,19 @@ function Problem({ name, tags, statement, exampl, txtcase }) {
                     </Card>
                     <br />
                     <Card>
-                        <Card.Header>Example</Card.Header>
+                        <Card.Header>Constraints</Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                {exampl}
+                                {constraints}
                             </Card.Text>
                         </Card.Body>
                     </Card>
                     <br />
                     <Card>
-                        <Card.Header>Test Case</Card.Header>
+                        <Card.Header>Sample Test Case</Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                {txtcase}
+                                {sample_case}
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -45,7 +45,7 @@ function Problem({ name, tags, statement, exampl, txtcase }) {
                 </Card.Body>
             </Card>
 
-            <Compiler />
+            <Compiler cid={cid} pid={pid} input={input} output={output} nos={nos} score={score} isContest={isContest} isRunning={isRunning} />
 
         </div>
     )

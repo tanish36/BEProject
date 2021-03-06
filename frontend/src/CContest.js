@@ -4,13 +4,13 @@ import { Card, ListGroup } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pbm from './Problem.js'
 
-function CContest({ ccid }) {
+function CContest({ ccid, isRunning }) {
 
     const [isLoading, setisLoading] = useState(false)
     const [problem, setproblem] = useState(null)
 
     var cp_id = ccid;
-    console.log(cp_id);
+
     useEffect(() => {
         setisLoading(true)
         ContestService.getcproblem(cp_id).then((response) => {
@@ -21,7 +21,7 @@ function CContest({ ccid }) {
     }, [])
 
     useEffect(() => {
-        console.log(problem)
+        // console.log(problem)
     }, [problem])
 
 
@@ -30,16 +30,19 @@ function CContest({ ccid }) {
 
         setproblem(cont);
 
-        console.log(problem)
+        //   console.log(problem)
 
     }
 
-       if( problem != null)
-       {
-        return <Pbm name={problem.cont.problem_name} tags={problem.cont.problem_tags}  statement={problem.cont.problem_statement} exampl={problem.cont. problem_io} constraints={problem.cont.problem_con} txtcase={problem.cont.problem_test}/>
-    
-       }
-       else{
+    if (problem != null) {
+        return <Pbm cid={ccid} pid={problem.cont.problem_id} isRunning={isRunning} isContest={true}
+            name={problem.cont.problem_name} tags={problem.cont.problem_tags} statement={problem.cont.problem_statement}
+            constraints={problem.cont.problem_example} sample_case={problem.cont.problem_samplecase}
+            input={problem.cont.problem_input} output={problem.cont.problem_output}
+            score={problem.cont.problem_score}
+            nos={problem.cont.problem_noofsubmission} />
+    }
+    else {
         return (
             <div>
                 {
@@ -48,11 +51,11 @@ function CContest({ ccid }) {
                             <CircularProgress />
                         </div> : null
                 }
-                
+
                 < Card >
-               
+
                     <Card.Header> {ccid}</Card.Header>
-                    
+
                 </Card>
                 <br></br>
                 < Card >
@@ -65,8 +68,8 @@ function CContest({ ccid }) {
 
             </div >
         )
-       }
-    
+    }
+
 }
 
 export default CContest

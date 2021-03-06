@@ -3,8 +3,9 @@ import { Card, Form, Button, Row, Col } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alertdism from '../../Alertdism';
 import CompilerService from '../../services/compiler.service'
+import AuthService from '../../services/auth.service'
 
-function Compiler() {
+function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning }) {
 
     const [hide, sethide] = useState(false)
     const [isLoading, setisLoading] = useState(false)
@@ -12,32 +13,36 @@ function Compiler() {
     const [message, setmessage] = useState("")
 
 
+    console.log(pid + " " + cid + " " + isContest + " " + isRunning)
 
+    let email = JSON.parse(localStorage.getItem("user")).email;
 
     function handleClick(event) {
 
-        let output = document.getElementById("Form.ControlOutput");
+        let outputt = document.getElementById("Form.ControlOutput");
 
         sethide(true);
 
         event.preventDefault();
         var lang_id = event.target[0].value
         var source = event.target[1].value
-        var input = event.target[2].value;
+
+        //var input = event.target[2].value || input;
 
         console.log(lang_id);
         console.log(source);
         console.log(input);
+        console.log(output)
 
-        output.innerHTML = "";
+        outputt.innerHTML = "";
 
         setisLoading(true);
 
-        CompilerService.run_code(lang_id, source, input).then((response) => {
+        CompilerService.run_code(lang_id, source, input, output).then((response) => {
 
             localStorage.setItem("token", response.token);
 
-            output.innerHTML += "Code is Submitted Sucessfully ! \n";
+            outputt.innerHTML += "Code is Submitted Sucessfully ! \n";
 
             setisLoading(false);
 
@@ -61,7 +66,7 @@ function Compiler() {
 
     const Submit = async () => {
 
-        let output = document.getElementById("Form.ControlOutput");
+        let outputt = document.getElementById("Form.ControlOutput");
 
 
         var token = localStorage.getItem("token");
@@ -88,30 +93,53 @@ function Compiler() {
 
                     if (resp.compile_output != null) {
 
-                        output.innerHTML = output.innerHTML + b64DecodeUnicode(resp.compile_output) + "\n";
+                        outputt.innerHTML = outputt.innerHTML + b64DecodeUnicode(resp.compile_output) + "\n";
 
                     } else if (resp.stderr != null) {
 
-                        output.innerHTML = output.innerHTML + b64DecodeUnicode(resp.stderr) + "\n";
+                        outputt.innerHTML = outputt.innerHTML + b64DecodeUnicode(resp.stderr) + "\n";
 
                     } else {
 
-                        output.innerHTML = output.innerHTML + resp.status.description + "\n";
+                        outputt.innerHTML = outputt.innerHTML + resp.status.description + "\n";
 
                         if (resp.status.description === "Wrong Answer" || resp.status.description === "Compilation Error" || resp.status.description === "Time Limit Exceeded") {
 
                             setsuccess(0)
                             setmessage(resp.status.description);
 
+                            if (resp.status.description === "Wrong Answer" || resp.status.description === "Compilation Error") {
+                                AuthService.saveGraph(email, "wa").then((resp) => {
+                                    console.log(resp)
+                                }, (err) => {
+                                    console.log(err)
+                                })
+                            } else {
+                                AuthService.saveGraph(email, "tle").then((resp) => {
+                                    console.log(resp)
+                                }, (err) => {
+                                    console.log(err)
+                                })
+                            }
+
                         } else if (resp.status.description === "Accepted") {
                             setsuccess(1)
                             setmessage(resp.status.description);
+
+
+                            AuthService.saveGraph(email, "ac").then((resp) => {
+                                console.log(resp)
+                            }, (err) => {
+                                console.log(err)
+                            })
+
+
                         } else {
                             setsuccess(2);
                             setmessage(resp.status.description);
                         }
 
-                        output.innerHTML = output.innerHTML + b64DecodeUnicode(resp.stdout) + "\n";
+                        outputt.innerHTML = outputt.innerHTML + b64DecodeUnicode(resp.stdout) + "\n";
                     }
                 }
 
@@ -167,11 +195,11 @@ function Compiler() {
                             <Form.Label >Source</Form.Label>
                             <Form.Control as="textarea" rows={15} />
                         </Form.Group>
-
+                        {/* 
                         <Form.Group controlId="Form.ControlContent">
                             <Form.Label >Input</Form.Label>
                             <Form.Control disabled={hide} as="textarea" rows={5} />
-                        </Form.Group>
+                        </Form.Group> */}
 
                         <Form.Group controlId="Form.ControlOutput">
                             <Form.Label >Output</Form.Label>
