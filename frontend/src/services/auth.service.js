@@ -80,9 +80,9 @@ class AuthService {
     }
 
     //ac , wa , tle
-    async saveGraph(user_id, status) {
+    async saveGraph(email, status) {
         const response = await axios.post(API_URL + "saveGraph", {
-            user_id, status
+            email, status
         });
         return response.data;
     }
