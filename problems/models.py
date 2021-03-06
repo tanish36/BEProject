@@ -10,7 +10,7 @@ class problem(models.Model):
     problem_example = models.TextField(null=True)#test case
     problem_samplecase = models.TextField(null=True)
     problem_score = models.TextField(null=True) 
-    problem_noofsubmission = models.TextField(null=True)
+    problem_noofsubmission = models.TextField(null=True,default=0)
 
 class problemfeedback(models.Model):
     problem_feedback = models.TextField()
