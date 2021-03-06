@@ -37,7 +37,7 @@ function Problem({ name, tags, statement, constraints, sample_case, input, outpu
                     <Card>
                         <Card.Header>Sample Test Case</Card.Header>
                         <Card.Body>
-                            <Card.Text>
+                            <Card.Text id="SampleCase">
                                 {sample_case}
                             </Card.Text>
                         </Card.Body>
