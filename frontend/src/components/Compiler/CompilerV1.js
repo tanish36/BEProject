@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Card, Form, Button, Row, Col } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alertdism from '../../Alertdism';
-import CompilerService from '../../services/compiler.service'
 import AuthService from '../../services/auth.service'
+import ContestService from '../../services/contest.service'
 
 function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning }) {
 
@@ -92,6 +92,11 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
             outputText.innerHTML = `Question Result : ${jsonGetSolution.status.description} \n`;
 
             if (jsonGetSolution.status.description === "Accepted") {
+                ContestService.updatenos(pid).then((response) => {
+                    console.log(pid + " " + response)
+                }, (error) => {
+
+                })
                 setsuccess(1);
             } else if (jsonGetSolution.status.description === "Wrong Answer") {
                 setsuccess(0);
@@ -113,7 +118,6 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
             outputText.innerHTML = "";
 
             outputText.innerHTML += `\n Error :${compilation_error}`;
-
 
         }
 
