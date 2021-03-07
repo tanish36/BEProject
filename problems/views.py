@@ -28,20 +28,14 @@ def problemfeedbacki(request):
 	try:
 		zz = problemfeedback.objects.filter(email=request.data['email'],problem_id=request.data['problem_id'])
 		if len(zz)==0:
-		#if serializer.is_valid():
 			u = problemfeedback()
-			#u.problem_id = request.data['problem_id']
 			u.problem_feedback = request.data['problem_feedback']
 			u.email = request.data['email']
 			u.problem_id = request.data['problem_id']
 			u.save()
-			#data2 = serializer.data
-			#data2['id'] = u.problem_id
 			return Response({"message":"feedback saved"},status=200)
 		else:
 			return Response({"message":"feedback already given"},status=200)
-		#else:
-			#return Response(serializer.errors, status=400)
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
 
