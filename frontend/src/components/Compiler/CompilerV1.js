@@ -92,14 +92,34 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
             outputText.innerHTML = `Question Result : ${jsonGetSolution.status.description} \n`;
 
             if (jsonGetSolution.status.description === "Accepted") {
+
                 ContestService.updatenos(pid).then((response) => {
                     console.log(pid + " " + response)
                 }, (error) => {
 
                 })
+
+
+                AuthService.saveGraph(email, "ac").then((resp) => {
+                    console.log(resp)
+                }, (err) => {
+                    console.log(err)
+                })
+
                 setsuccess(1);
             } else if (jsonGetSolution.status.description === "Wrong Answer") {
                 setsuccess(0);
+                AuthService.saveGraph(email, "wa").then((resp) => {
+                    console.log(resp)
+                }, (err) => {
+                    console.log(err)
+                })
+            } else if (jsonGetSolution.status.description === "Time Limit Exceeded") {
+                AuthService.saveGraph(email, "tle").then((resp) => {
+                    console.log(resp)
+                }, (err) => {
+                    console.log(err)
+                })
             }
 
             outputText.innerHTML += `Results : ${output}\nExecution Time : ${jsonGetSolution.time} Secs\nMemory used : ${jsonGetSolution.memory} bytes`;
@@ -110,6 +130,11 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
 
             outputText.innerHTML += `\n Error :${error}`;
 
+            AuthService.saveGraph(email, "wa").then((resp) => {
+                console.log(resp)
+            }, (err) => {
+                console.log(err)
+            })
 
         } else {
 
@@ -118,6 +143,12 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
             outputText.innerHTML = "";
 
             outputText.innerHTML += `\n Error :${compilation_error}`;
+
+            AuthService.saveGraph(email, "wa").then((resp) => {
+                console.log(resp)
+            }, (err) => {
+                console.log(err)
+            })
 
         }
 
