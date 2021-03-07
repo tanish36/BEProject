@@ -31,7 +31,7 @@ def recommend1(request):
 			u.problem_id = request.data['problem_id']
 			u.email = request.data['email']
 			u.status = request.data['status']
-			u.timetaken = request.data['timetaken']
+			#u.timetaken = request.data['timetaken']
 			u.lineofcode = request.data['lineofcode']
 			u.save()
 			return Response({"message":"information saved"},status=200)
@@ -40,15 +40,12 @@ def recommend1(request):
 		return Response({"message":str(ex)},status =500)
 
 @api_view(['POST'])
-def recommend3(request):
+def tag_search(request):
 	try:
 			u = userrecommend3()
 			#u.problem_id = request.data['problem_id']
 			u.email = request.data['email']
-			u.timespent = request.data['timespent']
-			u.tagsserach = request.data['tagsserach']
-			u.tsc = request.data['tsc']
-			u.tsp = request.data['tsp']
+			u.topicid = request.data['topicid']
 			u.save()
 			return Response({"message":"information saved"},status=200)
 		
@@ -56,16 +53,70 @@ def recommend3(request):
 		return Response({"message":str(ex)},status =500)
 
 @api_view(['POST'])
-def recommend2(request):
+def start_problem(request):
 	try:
 			u = userrecommend2()
 			u.problem_id = request.data['problem_id']
 			u.email = request.data['email']
-			u.nooftry = request.data['nooftry']
-			u.rating = request.data['rating']
-			u.difficulty = request.data['difficulty']
+			#u.nooftry = request.data['nooftry']
+			u.itime = request.data['itime']
+			#u.difficulty = request.data['difficulty']
 			u.save()
 			return Response({"message":"information saved"},status=200)
 		
+	except Exception as ex:
+		return Response({"message":str(ex)},status =500)
+
+@api_view(['POST'])
+def no_of_try(request):
+	try:
+		zz = userrecommend2.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).values()
+		if len(zz)==0:
+			u = userrecommend2()
+			u.nooftry = request.data['nooftry']
+			u.email = request.data['email']
+			u.problem_id = request.data['problem_id']
+			u.save()
+			return Response({"message":"saved"},status=200)
+		else:
+			userrecommend2.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).update(nooftry = int(zz['nooftry'])+1)
+			return Response({"message":"updated"},status=200)
+	except Exception as ex:
+		return Response({"message":str(ex)},status =500)
+
+
+@api_view(['POST'])
+def end_problem(request):
+	try:
+		zz = userrecommend2.objects.filter(email=request.data['email'],problem_id=request.data['problem_id'])
+		userrecommend2.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).update(ftime = request.data['ftime'])
+		return Response({"message":"updated"},status=200)
+	except Exception as ex:
+		return Response({"message":str(ex)},status =500)
+
+
+@api_view(['POST'])
+def login_start(request):
+	try:
+		zz = userrecommend4.objects.filter(email=request.data['email'])
+		if len(zz)==0:
+			u = userrecommend4()
+			u.nooftry = request.data['nooftry']
+			u.loginstarttime = request.data['loginstarttime']
+			u.save()
+			return Response({"message":"saved"},status=200)
+		else:
+			userrecommend4.objects.filter(email=request.data['email']).update(loginstarttime = request.data['loginstarttime'])
+			return Response({"message":"updated"},status=200)
+	except Exception as ex:
+		return Response({"message":str(ex)},status =500)
+
+
+@api_view(['POST'])
+def login_end(request):
+	try:
+		zz = userrecommend4.objects.filter(email=request.data['email'])
+		userrecommend4.objects.filter(email=request.data['email']).update(loginendtime = request.data['loginendtime'])
+		return Response({"message":"saved"},status=200)
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
