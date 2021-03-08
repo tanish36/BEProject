@@ -79,7 +79,7 @@ def no_of_try(request):
 			u.save()
 			return Response({"message":"saved"},status=200)
 		else:
-			userrecommend7.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).update(nooftry = int(zz['nooftry'])+1)
+			userrecommend7.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).update(nooftry = int(zz[0]['nooftry'])+1)
 			return Response({"message":"updated"},status=200)
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
@@ -101,7 +101,7 @@ def login_start(request):
 		zz = userrecommend9.objects.filter(email=request.data['email'])
 		if len(zz)==0:
 			u = userrecommend9()
-			u.nooftry = request.data['nooftry']
+			#u.nooftry = request.data['nooftry']
 			u.loginstarttime = request.data['loginstarttime']
 			u.save()
 			return Response({"message":"saved"},status=200)
