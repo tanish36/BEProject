@@ -27,7 +27,7 @@ def futureContests(request):
 @api_view(['POST'])
 def recommend1(request):
 	try:
-			u = userrecommend()
+			u = userrecommend6()
 			u.problem_id = request.data['problem_id']
 			u.email = request.data['email']
 			u.status = request.data['status']
@@ -42,7 +42,7 @@ def recommend1(request):
 @api_view(['POST'])
 def tag_search(request):
 	try:
-			u = userrecommend3()
+			u = userrecommend8()
 			#u.problem_id = request.data['problem_id']
 			u.email = request.data['email']
 			u.topicid = request.data['topicid']
@@ -55,7 +55,7 @@ def tag_search(request):
 @api_view(['POST'])
 def start_problem(request):
 	try:
-			u = userrecommend2()
+			u = userrecommend7()
 			u.problem_id = request.data['problem_id']
 			u.email = request.data['email']
 			#u.nooftry = request.data['nooftry']
@@ -70,16 +70,16 @@ def start_problem(request):
 @api_view(['POST'])
 def no_of_try(request):
 	try:
-		zz = userrecommend2.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).values()
+		zz = userrecommend7.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).values()
 		if len(zz)==0:
-			u = userrecommend2()
+			u = userrecommend7()
 			u.nooftry = request.data['nooftry']
 			u.email = request.data['email']
 			u.problem_id = request.data['problem_id']
 			u.save()
 			return Response({"message":"saved"},status=200)
 		else:
-			userrecommend2.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).update(nooftry = int(zz['nooftry'])+1)
+			userrecommend7.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).update(nooftry = int(zz['nooftry'])+1)
 			return Response({"message":"updated"},status=200)
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
@@ -88,8 +88,8 @@ def no_of_try(request):
 @api_view(['POST'])
 def end_problem(request):
 	try:
-		zz = userrecommend2.objects.filter(email=request.data['email'],problem_id=request.data['problem_id'])
-		userrecommend2.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).update(ftime = request.data['ftime'])
+		zz = userrecommend7.objects.filter(email=request.data['email'],problem_id=request.data['problem_id'])
+		userrecommend7.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).update(ftime = request.data['ftime'])
 		return Response({"message":"updated"},status=200)
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
@@ -98,15 +98,15 @@ def end_problem(request):
 @api_view(['POST'])
 def login_start(request):
 	try:
-		zz = userrecommend4.objects.filter(email=request.data['email'])
+		zz = userrecommend9.objects.filter(email=request.data['email'])
 		if len(zz)==0:
-			u = userrecommend4()
+			u = userrecommend9()
 			u.nooftry = request.data['nooftry']
 			u.loginstarttime = request.data['loginstarttime']
 			u.save()
 			return Response({"message":"saved"},status=200)
 		else:
-			userrecommend4.objects.filter(email=request.data['email']).update(loginstarttime = request.data['loginstarttime'])
+			userrecommend9.objects.filter(email=request.data['email']).update(loginstarttime = request.data['loginstarttime'])
 			return Response({"message":"updated"},status=200)
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
@@ -115,8 +115,8 @@ def login_start(request):
 @api_view(['POST'])
 def login_end(request):
 	try:
-		zz = userrecommend4.objects.filter(email=request.data['email'])
-		userrecommend4.objects.filter(email=request.data['email']).update(loginendtime = request.data['loginendtime'])
+		zz = userrecommend9.objects.filter(email=request.data['email'])
+		userrecommend9.objects.filter(email=request.data['email']).update(loginendtime = request.data['loginendtime'])
 		return Response({"message":"saved"},status=200)
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
