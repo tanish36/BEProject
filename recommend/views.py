@@ -73,7 +73,7 @@ def no_of_try(request):
 		zz = userrecommend7.objects.filter(email=request.data['email'],problem_id=request.data['problem_id']).values()
 		if len(zz)==0:
 			u = userrecommend7()
-			u.nooftry = request.data['nooftry']
+			u.nooftry = 1
 			u.email = request.data['email']
 			u.problem_id = request.data['problem_id']
 			u.save()
