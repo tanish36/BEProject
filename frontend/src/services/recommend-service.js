@@ -4,21 +4,21 @@ const API_URL = "http://127.0.0.1:8000/recommend/";
 
 class RecommendService {
 
-    // getData(username = "tanish36") {
-    //     return axios
-    //         .get(API_URL, {
-    //             params: {
-    //                 username: username
-    //             }
-    //         })
-    //         .then(response => {
-    //             console.log(response);
-    //             localStorage.setItem("Recommendation", JSON.stringify(response.data));
-    //             return response.data;
-    //         });
-    // }
+    getData(username = "tanish36") {
+        return axios
+            .get(API_URL, {
+                params: {
+                    username: username
+                }
+            })
+            .then(response => {
+                console.log(response);
+                localStorage.setItem("Recommendation", JSON.stringify(response.data));
+                return response.data;
+            });
+    }
 
-    noOfTries(problem_id, email) {
+    async noOfTries(problem_id, email) {
         const response = await axios.post(API_URL + "no_of_try", {
             email, problem_id
         });

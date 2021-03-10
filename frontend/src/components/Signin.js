@@ -57,7 +57,7 @@ export default function SignIn() {
 
             let dt = new Date();
             RecommendService.loginStart(email, dt).then((response => {
-
+                console.log(response)
             }), (error) => {
                 console.log(error)
             })
