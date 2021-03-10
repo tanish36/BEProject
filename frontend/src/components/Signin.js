@@ -9,7 +9,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
 import AuthService from '../services/auth.service';
+import RecommendService from '../services/recommend-service';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useHistory } from 'react-router-dom';
 import Alertdism from '../Alertdism'
@@ -51,6 +54,14 @@ export default function SignIn() {
 
         AuthService.login(email, password).then((response) => {
             console.log(response);
+
+            let dt = new Date();
+            RecommendService.loginStart(email, dt).then((response => {
+
+            }), (error) => {
+                console.log(error)
+            })
+
             setloading(false);
             setsuccess(1);
             history.push("/Welcome");

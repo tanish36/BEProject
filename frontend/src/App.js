@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import Profile from './Profile';
 import AddContent from './AddContent';
 import Contest from './Contest';
+import AddProblem from './AddProblem';
 import AddContest from './AddContest';
 import AllProblem from './AllProblem'
 import Homepage from './Homepage';
@@ -18,6 +19,7 @@ import Problem from './Problem';
 import ContentEntry from './ContentEntry';
 import Recommendation from './Recommendation';
 import LearnEntry from './LearnEntry';
+
 
 export default function App() {
 
@@ -64,6 +66,7 @@ export default function App() {
               <Route exact path="/Problem" component={Problem} />
               <Route exact path="/Contest" component={Contest} />
               <Route exact path="/AddContest" component={AddContest} />
+              <Route exact path="/AddProblem" component={AddProblem} />
               <Route exact path="/AllProblem" component={AllProblem} />
               <Route exact path="/Homepage" component={Homepage} />
               <Route exact path="/Recommendation" component={Recommendation} />

@@ -4,6 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Alertdism from '../../Alertdism';
 import AuthService from '../../services/auth.service'
 import ContestService from '../../services/contest.service'
+import RecommendService from '../../services/recommend-service'
 
 function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning }) {
 
@@ -99,6 +100,13 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
 
                 })
 
+                let dt = new Date();
+                RecommendService.endProblem(pid, email, dt).then((response) => {
+                    console.log(response);
+                }, (error) => {
+
+                })
+
 
                 AuthService.saveGraph(email, "ac").then((resp) => {
                     console.log(resp)
@@ -108,6 +116,13 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
 
                 setsuccess(1);
             } else if (jsonGetSolution.status.description === "Wrong Answer") {
+
+                RecommendService.noOfTries(pid, email).then((response) => {
+                    console.log(response)
+                }, (error) => {
+                    console.log(error)
+                })
+
                 setsuccess(0);
                 AuthService.saveGraph(email, "wa").then((resp) => {
                     console.log(resp)
@@ -115,6 +130,13 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
                     console.log(err)
                 })
             } else if (jsonGetSolution.status.description === "Time Limit Exceeded") {
+
+                RecommendService.noOfTries(pid, email).then((response) => {
+                    console.log(response)
+                }, (error) => {
+                    console.log(error)
+                })
+
                 AuthService.saveGraph(email, "tle").then((resp) => {
                     console.log(resp)
                 }, (err) => {
@@ -136,6 +158,12 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
                 console.log(err)
             })
 
+            RecommendService.noOfTries(pid, email).then((response) => {
+                console.log(response)
+            }, (error) => {
+                console.log(error)
+            })
+
         } else {
 
             const compilation_error = atob(jsonGetSolution.compile_output);
@@ -148,6 +176,12 @@ function Compiler({ input, output, score, nos, pid, cid, isContest, isRunning })
                 console.log(resp)
             }, (err) => {
                 console.log(err)
+            })
+
+            RecommendService.noOfTries(pid, email).then((response) => {
+                console.log(response)
+            }, (error) => {
+                console.log(error)
             })
 
         }

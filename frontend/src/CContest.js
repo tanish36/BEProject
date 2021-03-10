@@ -52,11 +52,6 @@ function CContest({ ccid, isRunning }) {
                         </div> : null
                 }
 
-                < Card >
-
-                    <Card.Header> {ccid}</Card.Header>
-
-                </Card>
                 <br></br>
                 < Card >
                     <Card.Header>Problem Set</Card.Header>

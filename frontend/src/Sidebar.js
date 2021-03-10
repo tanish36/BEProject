@@ -32,6 +32,9 @@ export default function Sidebar(isLoggedIn) {
                                 <Nav.Item>
                                     <Nav.Link href="/AddContest" >AddContest</Nav.Link>
                                 </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link href="/AddProblem" >AddProblem</Nav.Link>
+                                </Nav.Item>
                             </> : <></>
 
                         }

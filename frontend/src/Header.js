@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Nav, Navbar, Button } from 'react-bootstrap'
 import AuthService from './services/auth.service'
-import SchoolIcon from '@material-ui/icons'
+import RecommendService from './services/recommend-service'
 
 
 export default function Header({ logOut, loggedIn }) {
@@ -20,6 +20,15 @@ export default function Header({ logOut, loggedIn }) {
 
     function Logout() {
         loggedIn = false;
+        let dt = new Date();
+        let email = JSON.parse(localStorage.getItem("user")).email;
+
+        RecommendService.loginEnd(email, dt).then((response) => {
+
+        }, (error) => {
+
+        })
+
         AuthService.logout();
         logOut();
         window.location.href = "/";
