@@ -27,7 +27,7 @@ SECRET_KEY = ')3a=t8#2_dv*3sfi)s#a3@@_4kc6*o+(wz!e924-cck!u8!fx3'
 DEBUG = True
 
 
-ALLOWED_HOSTS=['127.0.0.1' , 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'recommend'
-   
+
 ]
 
 MIDDLEWARE = [
@@ -69,7 +69,9 @@ ROOT_URLCONF = 'Codeit.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'frontend/build')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,13 +91,13 @@ WSGI_APPLICATION = 'Codeit.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'mydatabase',
-    'USER': 'postgre',
-    'PASSWORD': 'admin123',
-    'HOST': 'database-1.cu24h4ulvyoa.ap-south-1.rds.amazonaws.com',
-    'PORT': '5432',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'postgre',
+        'PASSWORD': 'admin123',
+        'HOST': 'database-1.cu24h4ulvyoa.ap-south-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -137,6 +139,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/build/static')]
