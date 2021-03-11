@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MY_URL } from '../../constants'
+import { MY_URL } from '../constants'
 
 const API_URL = MY_URL + "contest/";
 
