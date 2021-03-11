@@ -15,29 +15,29 @@ const AddProblem = () => {
 
         event.preventDefault();
         //problem name
-        console.log(event.target[1].value)
-        var p_name = event.target[1].value
+        console.log(event.target[0].value)
+        var p_name = event.target[0].value
         //problem state
-        console.log(event.target[2].value)
-        var p_statement = event.target[2].value
+        console.log(event.target[1].value)
+        var p_statement = event.target[1].value
         //problem tags
-        console.log(event.target[3].value)
-        var p_tags = event.target[3].value
+        console.log(event.target[2].value)
+        var p_tags = event.target[2].value
         //problem eg 
-        console.log(event.target[4].value)
-        var p_constr = event.target[4].value
+        console.log(event.target[3].value)
+        var p_constr = event.target[3].value
         //problem const
-        console.log(event.target[5].value)
-        var p_sample = event.target[5].value
+        console.log(event.target[4].value)
+        var p_sample = event.target[4].value
         //problem test case
+        console.log(event.target[5].value)
+        var p_input = event.target[5].value
+
         console.log(event.target[6].value)
-        var p_input = event.target[6].value
+        var p_output = event.target[6].value
 
         console.log(event.target[7].value)
-        var p_output = event.target[7].value
-
-        console.log(event.target[8].value)
-        var p_score = parseInt(event.target[8].value)
+        var p_score = parseInt(event.target[7].value)
 
 
         ContestService.addproblem(p_name, p_statement, p_tags, p_constr, p_sample, p_input, p_output, p_score).then((response) => {
