@@ -1,6 +1,7 @@
 import axios from "axios";
+import { MY_URL } from '../constants'
 
-const API_URL = "http://127.0.0.1:8000/contest/";
+const API_URL = MY_URL + "contest/";
 
 class ContestService {
 
@@ -45,7 +46,7 @@ class ContestService {
 
     async getproblems() {
         return axios
-            .get("http://127.0.0.1:8000/problems/getproblems")
+            .get(MY_URL + "problems/getproblems")
             .then(response => {
                 //console.log(response);
                 localStorage.setItem("Problems", JSON.stringify(response.data));
@@ -81,7 +82,7 @@ class ContestService {
 
     async addproblem(problem_name, problem_statement, problem_tags, problem_example, problem_samplecase, problem_input, problem_output, problem_score, problem_noofsubmission = 0) {
         return axios
-            .post("http://127.0.0.1:8000/problems/addproblem", {
+            .post(MY_URL + "problems/addproblem", {
                 problem_name, problem_statement, problem_tags, problem_example, problem_samplecase, problem_input, problem_output, problem_score, problem_noofsubmission
             })
             .then(response => {
@@ -101,7 +102,7 @@ class ContestService {
     }
 
     async updatenos(problem_id) {
-        return axios.get("http://127.0.0.1:8000/problems/updatenos", {
+        return axios.get(MY_URL + "problems/updatenos", {
             params: {
                 problem_id: problem_id
             }
@@ -111,7 +112,7 @@ class ContestService {
     }
 
     async problemfeedback(email, problem_id, problem_feedback) {
-        return axios.post("http://127.0.0.1:8000/problems/problemfeedback", {
+        return axios.post(MY_URL + "problems/problemfeedback", {
             email, problem_id, problem_feedback
         }).then(response => {
             return response.data;

@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000/topic/";
+import { MY_URL } from '../constants'
+
+const API_URL = MY_URL + "topic/"
 
 class ContentService {
 
