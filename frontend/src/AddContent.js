@@ -57,6 +57,18 @@ function AddContent() {
                                             <Form.Control as="select" custom>
                                                 <option>DataStructures</option>
                                                 <option>Algorithms</option>
+                                                <option>Dynamic Programming</option>
+                                                <option>Greedy</option>
+                                                <option>Math</option>
+                                                <option>Strings</option>
+                                                <option>DFS and Similar</option>
+                                                <option>Combinatorics</option>
+                                                <option>Geometry</option>
+                                                <option>Bitmasks</option>
+                                                <option>Two Pointer</option>
+                                                <option>Shortest Path</option>
+                                                <option>Probability</option>
+                                                <option>Number Theory</option>
                                             </Form.Control>
                                         </Col>
                                     </Form.Group>
