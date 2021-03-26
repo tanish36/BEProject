@@ -135,8 +135,8 @@ function Home() {
         <Card.Img variant="top" src= {dheeru} />
         <Card.Body>
         <Card.Text>
-            Some quick example text to build on the card title and make up the bulk
-            of the card's content.
+        <b>Dheeraj Kumar</b><br/>
+            Machine Learning and Backend Specialist
         </Card.Text>
         </Card.Body>
     </Card>
@@ -146,8 +146,8 @@ function Home() {
         <Card.Img variant="top" src= {ashwani} />
         <Card.Body>
         <Card.Text>
-            Some quick example text to build on the card title and make up the bulk
-            of the card's content.
+        <b>Ashwani Ponia</b><br/>
+            Frontend and Development Specialist
         </Card.Text>
         </Card.Body>
     </Card>
@@ -158,8 +158,8 @@ function Home() {
         <Card.Img variant="top" src= {sangwan} />
         <Card.Body>
         <Card.Text>
-            Some quick example text to build on the card title and make up the bulk
-            of the card's content.
+        <b>Sumit Sangwan</b><br/>
+            Frontend and Maintainance Specialist
         </Card.Text>
         </Card.Body>
     </Card> 
@@ -168,9 +168,9 @@ function Home() {
     <Card>
         <Card.Img variant="top" src= {udit} />
         <Card.Body>
-        <Card.Text>
-            Some quick example text to build on the card title and make up the bulk
-            of the card's content.
+        <Card.Text> 
+            <b>Udit Dashore</b><br/>
+            Machine Learning Engineer Specialist
         </Card.Text>
         </Card.Body>
     </Card> 
