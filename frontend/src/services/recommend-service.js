@@ -6,11 +6,11 @@ const API_URL = MY_URL + "recommend/";
 
 class RecommendService {
 
-    getData(username = "tanish36") {
+    getData(username = "uu") {
         return axios
-            .get(API_URL, {
+            .get(API_URL + "recommend2", {
                 params: {
-                    username: username
+                    email: username
                 }
             })
             .then(response => {
