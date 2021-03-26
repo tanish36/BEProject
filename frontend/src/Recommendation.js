@@ -1,166 +1,65 @@
 import React, { useState, useEffect } from 'react'
-import RecommendService from './services/recommend-service'
+import ContestService from './services/contest.service'
+import { Card, ListGroup } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Table from 'react-bootstrap/Table'
+import Pbm from './Problem.js'
+import RecommendService from './services/recommend-service';
 
-function Recommendation() {
+function AllProblem() {
 
-    const [Data, setData] = useState(null)
-
-    useEffect(() => {
-
-        if (localStorage.getItem("Recommendation") == null) {
-            RecommendService.getData().then((response) => {
-                setData(localStorage.getItem("Recommendation"))
-            }, (error) => {
-
-            })
-        } else {
-            setData(localStorage.getItem("Recommendation"))
-        }
-    }, [])
-
-    return (
-        <div>
-            <h1>Recommendation System</h1>
-            {
-                Data == null ?
-                    <CircularProgress /> : <TableData Data={JSON.parse(Data)} />
-            }
-        </div>
-    )
-}
-
-
-function TableData({ Data }) {
-
-
-    var cnt = 1;
-    var cnt2 = 1;
-    var cnt3 = 1;
+    const [isLoading, setisLoading] = useState(false)
+    const [problem, setproblem] = useState(null)
 
     useEffect(() => {
+        setisLoading(true)
+        let email = JSON.parse(localStorage.getItem("user")).email;
+        RecommendService.getData(email).then((response) => {
+            setisLoading(false)
+        }, (error) => {
 
-        var keys = Object.keys(Data.tags);
-
-        for (var i = 0; i < keys.length; i++) {
-            // tags.push(Data.tags[keys[i]])
-            console.log(Data.tags[keys[i]])
-        }
+        })
     }, [])
 
-    return (
-        <div>
-            <h2>Practice</h2>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Problem Name</th>
-                        <th>Tags</th>
-                        <th>Links   </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {
-                        Object.keys(Data.tags).map(key => {
-
-                            return (
-                                Data.tags[key].map(k => {
-                                    return (
-                                        <tr >
-                                            <td>{cnt++}</td>
-                                            <td>{k[0]}</td>
-                                            <td>{key}</td>
-                                            <td><a href={k[1]}>{k[1]}</a></td>
-                                        </tr>
-                                    );
-                                })
-                            )
-                        })
-                    }
-
-                </tbody>
-            </Table>
+    useEffect(() => {
+        console.log(problem)
+    }, [problem])
 
 
-            <h2>Watch Videos</h2>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Tags</th>
-                        <th>Video Links   </th>
-                    </tr>
-                </thead>
-                <tbody>
+    function handleClick(cont) {
+        setproblem(cont);
+    }
 
-                    {
-                        Object.keys(Data.vurls).map(key => {
+    if (problem != null) {
+        return <Pbm pid={problem.cont.problem_id} isRunning={false} isContest={false}
+            name={problem.cont.problem_name} tags={problem.cont.problem_tags} statement={problem.cont.problem_statement}
+            constraints={problem.cont.problem_example} sample_case={problem.cont.problem_samplecase}
+            input={problem.cont.problem_input} output={problem.cont.problem_output}
+            score={problem.cont.problem_score}
+            nos={problem.cont.problem_noofsubmission} />
+    } else {
 
-                            return (
-                                Data.vurls[key].map(k => {
-
-                                    if (k != null)
-                                        return (
-
-                                            <tr >
-                                                <td>{cnt2++}</td>
-                                                <td>{key}</td>
-                                                <td><a href={k}>{k}</a></td>
-                                            </tr>
-
-                                        );
-                                    return null
-                                })
-                            )
-                        })
-                    }
-
-                </tbody>
-            </Table>
+        return (
+            <div>
+                {
+                    isLoading ?
+                        <div className="Loader">
+                            <CircularProgress />
+                        </div> : null
+                }
 
 
+                < Card >
+                    <Card.Header>Problem Set</Card.Header>
+                    <ListGroup variant="flush">
+                        {localStorage.getItem("Problems") && JSON.parse(localStorage.getItem("Problems")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.problem_name}</ListGroup.Item>)}
+                    </ListGroup>
+                </Card>
 
-            <h2>Tutorials</h2>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Tags</th>
-                        <th> Tutorial Links   </th>
-                    </tr>
-                </thead>
-                <tbody>
 
-                    {
-                        Object.keys(Data.curls).map(key => {
+            </div >
+        )
+    }
 
-                            return (
-                                Data.curls[key].map(k => {
-
-                                    if (k != null)
-                                        return (
-
-                                            <tr >
-                                                <td>{cnt3++}</td>
-                                                <td>{key}</td>
-                                                <td><a href={k}>{k}</a></td>
-                                            </tr>
-
-                                        );
-                                    return null
-                                })
-                            )
-                        })
-                    }
-
-                </tbody>
-            </Table>
-
-        </div >
-    )
 }
 
-export default Recommendation
+export default AllProblem
