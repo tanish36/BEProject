@@ -9,6 +9,7 @@ class user(models.Model):
     lastname = models.CharField(max_length=200)
     isadmin = models.CharField(max_length=200,default = "False",null=True)
     rank = models.IntegerField(default = 500,null=True)
+    recommended =  models.TextField(null=True)
 
 class submissions(models.Model):
     email = models.TextField(null=True)

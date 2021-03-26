@@ -12,4 +12,5 @@ urlpatterns = [
     path('end_problem', views.end_problem, name="end_problem"),
     path('login_start', views.login_start, name="login_start"),
     path('login_end', views.login_end, name="login_end"),
+    path('recommend2', views.recommend2, name="recommend2"),
 ]

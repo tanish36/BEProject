@@ -3,7 +3,12 @@ from .extraMethods import userDetails, convertUnixTime, getTags, contestDetails
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .models import *
-
+from authentication.models import *
+from problems.models import *
+from selenium import webdriver
+from bs4 import BeautifulSoup
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 # Create your views here.
 
 @api_view(['GET'])
@@ -118,5 +123,58 @@ def login_end(request):
 		zz = userrecommend9.objects.filter(email=request.data['email'])
 		userrecommend9.objects.filter(email=request.data['email']).update(loginendtime = request.data['loginendtime'])
 		return Response({"message":"saved"},status=200)
+	except Exception as ex:
+		return Response({"message":str(ex)},status =500)
+
+def links(tags):
+    weaktagsurl = {}
+    tagscurl = {}
+    browser = webdriver.Chrome()
+    for zzzz in tags:
+        browser.get('https://www.youtube.com/results?search_query=coding+problem+example+on+'+str(zzzz)+'&page&utm_source=opensearch')
+        user_data = browser.find_elements_by_xpath('//*[@id="video-title"]')
+
+        links = []
+        for i in user_data:
+           links.append(i.get_attribute('href'))
+           if len(links) == 4:
+             break
+        link2 = []
+        weaktagsurl[zzzz] = links
+        url = "http://www.google.com/search?q=" + 'hackerearth codemonk '+str(zzzz)+' algorithm'
+        browser.get(url)
+        soup = BeautifulSoup(browser.page_source, 'html.parser')
+        search = soup.find_all('div', class_="yuRUbf")
+        for h in search:
+            link2.append(h.a.get('href'))
+            if len(link2) == 4:
+           	 break
+        tagscurl[zzzz] = link2
+
+        if(len(weaktagsurl) == 4):
+            break
+    browser.quit()
+    return weaktagsurl,tagscurl
+
+
+@api_view(['GET'])
+def recommend2(request):
+	try:
+			z = user.objects.filter(email = request.GET['email']).values()
+			z = eval(z[0]['recommended'])
+			tags = []
+			res = []
+			for i in z:
+				res.append(problem.objects.filter(problem_id=i).values()[0])
+				temp = problem.objects.filter(problem_id=i).values()[0]['problem_tags']
+				temp = temp.split(',')
+				for i in temp:
+					tags.append(i)
+					print(tags)
+			tags2 = set(tags)
+			vlinks,clinks = links(tags2)
+			print(vlinks,clinks)
+			return Response({"problems":res,"vlinks":vlinks,"clinks":clinks},status=200)
+		
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
