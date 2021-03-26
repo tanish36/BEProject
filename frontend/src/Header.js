@@ -38,12 +38,10 @@ export default function Header({ logOut, loggedIn }) {
 
         <Navbar bg="light" variant="light" fixed="top">
             <Navbar.Brand href="#home">
-                {/* <SchoolIcon /> */}
                 CodeSchool
             </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="./Homepage">Home</Nav.Link>
-                <Nav.Link href="#features">Features</Nav.Link>
             </Nav>
 
             {loggedIn ?

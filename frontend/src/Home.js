@@ -288,7 +288,7 @@ function Home() {
   <Navbar.Collapse >
     <Navbar.Text>
    
-    AIT Pune. Call: 1234567890 Email: BePro@gmail.com  &copy; 2014 www.yourdomain.com  |  All Rights Reserved
+    AIT Pune. Call: 1234567890 Email: BePro@gmail.com  &copy; 2021 www.yourdomain.com  |  All Rights Reserved
            
         
     </Navbar.Text>
