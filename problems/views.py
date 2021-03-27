@@ -8,7 +8,7 @@ from rest_framework.response import Response
 #4416
 @api_view(['GET'])
 def getproblems(request):
-	dd = problem.objects.all().values()
+	dd = problem.objects.all().order_by('problem_id').values()
 	return Response(dd)
 
 @api_view(['GET'])
