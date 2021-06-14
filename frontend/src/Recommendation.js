@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import ContestService from './services/contest.service'
 import { Card, ListGroup } from 'react-bootstrap'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pbm from './Problem.js'
@@ -51,7 +50,7 @@ function AllProblem() {
                 < Card >
                     <Card.Header>Recommendations</Card.Header>
                     <ListGroup variant="flush">
-                        {localStorage.getItem("Problems") && JSON.parse(localStorage.getItem("Problems")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.problem_name}</ListGroup.Item>)}
+                        {localStorage.getItem("Recommendation") && JSON.parse(localStorage.getItem("Recommendation")).map(cont => <ListGroup.Item action onClick={() => handleClick({ cont })} disabled={isLoading} >{cont.problem_name}</ListGroup.Item>)}
                     </ListGroup>
                 </Card>
 

@@ -33,6 +33,7 @@ urlpatterns = [
     path('AddProblem', TemplateView.as_view(template_name='index.html')),
     path('Discuss', TemplateView.as_view(template_name='index.html')),
     path('Homepage', TemplateView.as_view(template_name='index.html')),
+    path('Recommendation', TemplateView.as_view(template_name='index.html')),
 
 
     path('admin/', admin.site.urls),
