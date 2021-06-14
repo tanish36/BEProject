@@ -165,16 +165,12 @@ def recommend2(request):
 			tags = []
 			res = []
 			for i in z:
-				res.append(problem.objects.filter(problem_id=i).values()[0])
-				
-				
-				
-					
+				res.append(problem.objects.filter(problem_id=i).values()[0])	
 					
 			
 			
 			
-			return Response({"problems":res},status=200)
+			return Response(res,status=200)
 		
 	except Exception as ex:
 		return Response({"message":str(ex)},status =500)
