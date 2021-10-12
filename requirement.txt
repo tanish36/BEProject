@@ -1,5 +1,5 @@
-django
-djangorestframework
-psycopg2
-gunicorn
-django-cors-headers
+django==3.1.1
+djangorestframework==3.11.1
+psycopg2==2.9
+gunicorn==20.0.4
+django-cors-headers==3.5.0
