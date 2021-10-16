@@ -1,5 +1,7 @@
 django==3.2.8
 djangorestframework==3.11.1
+
 psycopg2==2.9.1
+
 gunicorn==20.1.0
 django-cors-headers==3.5.0
