@@ -1,4 +1,4 @@
-django==3.2.8
+django==4.1.6
 djangorestframework==3.11.2
 psycopg2==2.9.1
 gunicorn==20.1.0
